@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Travelitinerary.Shared.Domain
 {
-    internal class Bookings : BaseDomainModel
+    public class Booking : BaseDomainModel
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
@@ -14,6 +14,7 @@ namespace Travelitinerary.Shared.Domain
         public string? BookTitle { get; set; }
         public string? BookDescription { get; set; }
         public int ItineraryID { get; set; }
+        public virtual Itinerary? Itinerary { get; set; }
         public int CustomerID { get; set; }
         public virtual Customer? Customer { get; set; }
         public int AvailableSlots { get; set; }

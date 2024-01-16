@@ -12,8 +12,8 @@ namespace Travelitinerary.Shared.Domain
         public string? PackaageDetails {  get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated {  get; set; }
-        public virtual Flight? Flight { get; set; }
-        public virtual Hotel? Hotel { get; set; }
+        public virtual Flight? Flights { get; set; }
+        public virtual Hotel? Hotels { get; set; }
         public virtual Staff? Staff { get; set; }
     }
 }

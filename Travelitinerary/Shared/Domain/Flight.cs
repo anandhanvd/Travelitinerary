@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Travelitinerary.Shared.Domain
 {
-    internal class Flight : BaseDomainModel
+    public class Flight : BaseDomainModel
     {
         public string? AirlineName{ get; set;}
         public string? Arrival { get; set; }
