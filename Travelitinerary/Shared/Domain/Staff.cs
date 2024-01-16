@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Travelitinerary.Shared.Domain
 {
-    internal class Staff : BaseDomainModel
+    public class Staff : BaseDomainModel
     {
+        public string? StaffName { get; set; }
+
 
     }
 }

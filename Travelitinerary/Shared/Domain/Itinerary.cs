@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Travelitinerary.Shared.Domain
 {
-    internal class Itinerary : BaseDomainModel
+    public class Itinerary : BaseDomainModel
     {
     }
 }
