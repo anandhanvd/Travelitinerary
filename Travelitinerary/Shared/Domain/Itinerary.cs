@@ -8,5 +8,12 @@ namespace Travelitinerary.Shared.Domain
 {
     public class Itinerary : BaseDomainModel
     {
+        public int no_of_days {  get; set; }
+        public string? PackaageDetails {  get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateUpdated {  get; set; }
+        public virtual Flight? Flight { get; set; }
+        public virtual Hotel? Hotel { get; set; }
+        public virtual Staff? Staff { get; set; }
     }
 }
