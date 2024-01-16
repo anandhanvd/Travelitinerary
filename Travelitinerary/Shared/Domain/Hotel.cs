@@ -8,6 +8,9 @@ namespace Travelitinerary.Shared.Domain
 {
     internal class Hotel : BaseDomainModel
     {
-
+        {
+        public string? Name { get; set; }
     }
+
+}
 }

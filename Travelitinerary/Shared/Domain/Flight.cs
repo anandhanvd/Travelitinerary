@@ -8,6 +8,6 @@ namespace Travelitinerary.Shared.Domain
 {
     internal class Flight : BaseDomainModel
     {
-        public string? Name{ get; set;}
+        public string? Airline{ get; set;}
     }
 }
