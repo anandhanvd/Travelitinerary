@@ -10,6 +10,8 @@ namespace Travelitinerary.Shared.Domain
     {
         public string? StaffName { get; set; }
 
+        public int Staffage{ get; set; }
+
 
     }
 }
