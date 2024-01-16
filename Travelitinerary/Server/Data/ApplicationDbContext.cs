@@ -15,7 +15,7 @@ namespace Travelitinerary.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
-       public DbSet<Flight> Flights { get; set; }
+        public DbSet<Flight> Flights { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Itinerary> Itineraries { get; set; }
         public DbSet<ItineraryActivity> ItineraryActivities { get; set; }
