@@ -3,7 +3,43 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
+
 <h3 class ="card-title">Staffs</h3>
+
+@if (Staffs == null)
+{
+    <div class="alert alert-info">Loading Staffs...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>FirstName </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var staff in Staffs)
+            {
+                <tr>
+                    <td>@staff.FirstName</td>
+                    <td>
+                        <a href="/staffs/view/@staff.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/staffs/edit/@staff.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(staff.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
     private List<Staff>? Staffs;
@@ -14,6 +50,15 @@
     }
     async Task Delete(int staffID)
     {
-        
+        if (Staffs != null)
+        {
+            var staff = Staffs.First(q => q.Id == staffID);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {staff.FirstName}?");
+            if(confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.StaffEndpoint}/{staffID}");
+                await OnInitializedAsync();
+            }
+        }
     }
 }
