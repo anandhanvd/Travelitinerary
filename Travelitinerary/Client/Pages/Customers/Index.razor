@@ -76,13 +76,10 @@ else
     {
         if (Customers != null)
         {
-            var customer = Customers.First(q => q.Id == customerId);
-            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {customer.DrivingLicense}$");
-            if (confirm)
-            {
+            
                 await _client.DeleteAsync($"{Endpoints.CustomersEndPoint}/{customerId}");
                 await OnInitializedAsync();
             }
-        }
+        
     }
 }
