@@ -1,5 +1,15 @@
-﻿<h3>Index</h3>
+﻿@page "/staffs/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class ="card-title">Staffs</h3>
 
 @code {
+    private List<Staff>? Staffs;
 
+    protected async override Task OnInitializedAsync()
+    {
+        Staffs
+    }
 }
