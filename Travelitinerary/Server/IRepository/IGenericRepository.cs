@@ -5,7 +5,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Travelitinerary.Server.Repository
+namespace Travelitinerary.Server.IRepository
+
 {
     public interface IGenericRepository<T> where T : class
     {

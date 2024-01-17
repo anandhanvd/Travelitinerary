@@ -1,19 +1,27 @@
-﻿using System.Diagnostics;
+﻿
 using Travelitinerary.Shared.Domain;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Travelitinerary.Server.Repository
+
+namespace Travelitinerary.Server.IRepository
+
 {
     public interface IUnitOfWork : IDisposable
     {
+
         Task Save(HttpContext httpContext);
-        IGenericRepository<Flight> Flight { get; }
-        IGenericRepository<Hotel> Hotel { get; }
+        IGenericRepository<Flight> Flights { get; }
+        IGenericRepository<Staff> Staffs { get; }
+        IGenericRepository<Hotel> Hotels { get; }
         IGenericRepository<Activity> Activities { get; }
         IGenericRepository<Itinerary> Itinerary { get; }
         IGenericRepository<Booking> Bookings { get; }
         IGenericRepository<Customer> Customers { get; }
-        IGenericRepository<Staff> Staff { get; }
+        
         IGenericRepository<ItineraryActivity> ItineraryActivities { get; }
-
     }
 }

@@ -15,7 +15,7 @@ namespace Travelitinerary.Shared.Domain
         public DateTime CheckOut { get; set; }
         public DateTime? CheckIn { get; set; }
         public string? RoomType { get; set; }
-        public float Price { get; set; }
+        public float? Price { get; set; }
 
     }
 

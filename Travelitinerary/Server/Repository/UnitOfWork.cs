@@ -1,26 +1,41 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
+﻿
 using Travelitinerary.Server.Data;
+using Travelitinerary.Server.IRepository;
 using Travelitinerary.Server.Models;
 using Travelitinerary.Shared.Domain;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace Travelitinerary.Server.Repository
+
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
+
         private IGenericRepository<Flight> _flights;
+
         private IGenericRepository<Hotel> _hotels;
+             
         private IGenericRepository<Itinerary> _itinerary;
+
         private IGenericRepository<Booking> _bookings;
+
         private IGenericRepository<Customer> _customers;
+
         private IGenericRepository<Staff> _staffs;
+
         private IGenericRepository<Activity> _activities;
+
         private IGenericRepository<ItineraryActivity> _itineararyActivities;
 
         private UserManager<ApplicationUser> _userManager;
-
         public UnitOfWork(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -28,7 +43,7 @@ namespace Travelitinerary.Server.Repository
         }
 
         public IGenericRepository<Flight> Flights
-            => _flights ??= new GenericRepository<Flight>(_context);
+                         => _flights ??= new GenericRepository<Flight>(_context);
         public IGenericRepository<Hotel> Hotels
             => _hotels ??= new GenericRepository<Hotel>(_context);
         public IGenericRepository<Itinerary> Itinerary

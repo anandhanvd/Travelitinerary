@@ -16,6 +16,6 @@ namespace Travelitinerary.Shared.Domain
         public DateTime? CheckIn { get; set; }
         public string? SeatClass { get; set; }
         public int? Availableseats { get; set; }
-        public float Price { get; set; }
+        public float? Price { get; set; }
     }
 }

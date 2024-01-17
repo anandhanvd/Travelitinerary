@@ -22,7 +22,7 @@ namespace Travelitinerary.Server.Data
         public DbSet<Staff> Staff { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Booking> Bookings { get; set; }
-        public DbSet<Activitiy> Activities { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 
     }
 }

@@ -16,7 +16,7 @@ namespace Travelitinerary.Shared.Domain
         public string? Address {  get; set; }
         public DateTime DateOfBirth {  get; set; }
         public DateTime HireDate { get; set; }
-        public string Position { get; set; }
+        public string? Position { get; set; }
         public string? Gender { get; set; }
 
     }
