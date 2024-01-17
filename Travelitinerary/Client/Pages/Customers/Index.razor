@@ -70,14 +70,14 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        Customers = await _client.GetFromJsonAsync<List<Customer>>($"{Endpoints.CustomersEndPoint}");
+        Customers = await _client.GetFromJsonAsync<List<Customer>>($"{Endpoints.CustomersEndpoint}");
     }
     async Task Delete(int customerId)
     {
         if (Customers != null)
         {
             
-                await _client.DeleteAsync($"{Endpoints.CustomersEndPoint}/{customerId}");
+                await _client.DeleteAsync($"{Endpoints.CustomersEndpoint}/{customerId}");
                 await OnInitializedAsync();
             }
         

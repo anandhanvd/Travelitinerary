@@ -65,7 +65,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        Bookings = await _client.GetFromJsonAsync<List<Booking>>($"{Endpoints.BookingsEndPoint}");
+        Bookings = await _client.GetFromJsonAsync<List<Booking>>($"{Endpoints.BookingsEndpoint}");
     }
     protected async override Task OnAfterRenderAsync(bool firstRender)
     {
@@ -85,7 +85,7 @@ else
             var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {booking.Id}$");
             if (confirm)
             {
-                await _client.DeleteAsync($"{Endpoints.BookingsEndPoint}/{bookingId}");
+                await _client.DeleteAsync($"{Endpoints.BookingsEndpoint}/{bookingId}");
                 await OnInitializedAsync();
             }
         }
