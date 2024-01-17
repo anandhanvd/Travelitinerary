@@ -14,40 +14,40 @@
 <br />
 <br />
 
-@if (OtherBookings == null)
+@if (OtherProjectBookings == null)
 {
-    <div class="alert alert-info">Loading Other Bookings...</div>
+    <div class="alert alert-info">Loading Bookings...</div>
 }
 else
 {
-    <table class="table table-responsive" id="otherBookingsTable">
+    <table class="table table-responsive" id="otherProjectBookingsTable">
         <thead>
             <tr>
-                <th>Other Booking Id</th>
-                <th>Other Booking Attribute</th>
-                <th>Date</th>
-                <th>Duration in days</th>
-                <th>Other Attribute</th>
+                <th>Booking Id</th>
+                <th>Customer Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Book Type</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var otherBooking in OtherBookings)
+            @foreach (var booking in Bookings)
             {
                 <tr>
-                    <td>@otherBooking.Id</td>
-                    <td>@otherBooking.OtherAttribute</td>
-                    <td>@otherBooking.DateCreated.Date.ToString("dd MMMM yyyy")</td>
-                    <td>@(otherBooking.DateIn != null ? (otherBooking.DateIn.Value - otherBooking.DateOut).TotalDays.ToString() : "To Be Determined")</td>
-                    <td>@otherBooking.OtherAttribute</td>
+                    <td>@booking.Id</td>
+                    <td>@booking.Customer.FirstName</td>
+                    <td>@booking.StartDate.Date.ToString("dd MMMM yyyy")</td>
+                    <td>@booking.EndDate.Date.ToString("dd MMMM yyyy")</td>
+                    <td>@booking.BookType</td>
                     <td>
-                        <a href="/otherbookings/view/@otherBooking.Id" class="btn btn-primary">
+                        <a href="/otherproject/bookings/view/@booking.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>
                         </a>
-                        <a href="/otherbookings/edit/@otherBooking.Id" class="btn btn-warning">
+                        <a href="/otherproject/bookings/edit/@booking.Id" class="btn btn-warning">
                             <span class="oi oi-pencil"></span>
                         </a>
-                        <button class="btn btn-danger" @onclick="@(()=> DeleteOtherBooking(otherBooking.Id))">
+                        <button class="btn btn-danger" @onclick="@(()=> Delete(booking.Id))">
                             <span class="oi oi-delete"></span>
                         </button>
                     </td>
@@ -56,6 +56,7 @@ else
         </tbody>
     </table>
 }
+
 
 
 @code {
