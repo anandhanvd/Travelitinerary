@@ -27,4 +27,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configurations\Entities\" />
+  </ItemGroup>
+
 </Project>
