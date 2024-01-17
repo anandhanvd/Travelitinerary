@@ -18,7 +18,7 @@ namespace Travelitinerary.Server.IRepository
         IGenericRepository<Staff> Staffs { get; }
         IGenericRepository<Hotel> Hotels { get; }
         IGenericRepository<Activity> Activities { get; }
-        IGenericRepository<Itinerary> Itinerary { get; }
+        IGenericRepository<Itinerary> Itineraries { get; }
         IGenericRepository<Booking> Bookings { get; }
         IGenericRepository<Customer> Customers { get; }
         

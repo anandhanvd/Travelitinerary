@@ -23,7 +23,7 @@ namespace Travelitinerary.Server.Repository
 
         private IGenericRepository<Hotel> _hotels;
              
-        private IGenericRepository<Itinerary> _itinerary;
+        private IGenericRepository<Itinerary> _itineraries;
 
         private IGenericRepository<Booking> _bookings;
 
@@ -46,8 +46,8 @@ namespace Travelitinerary.Server.Repository
                          => _flights ??= new GenericRepository<Flight>(_context);
         public IGenericRepository<Hotel> Hotels
             => _hotels ??= new GenericRepository<Hotel>(_context);
-        public IGenericRepository<Itinerary> Itinerary
-            => _itinerary ??= new GenericRepository<Itinerary>(_context);
+        public IGenericRepository<Itinerary> Itineraries
+            => _itineraries ??= new GenericRepository<Itinerary>(_context);
         public IGenericRepository<Staff> Staffs
             => _staffs ??= new GenericRepository<Staff>(_context);
         public IGenericRepository<Booking> Bookings
