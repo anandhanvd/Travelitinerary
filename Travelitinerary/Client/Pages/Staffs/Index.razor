@@ -10,6 +10,10 @@
 
     protected async override Task OnInitializedAsync()
     {
-        Staffs
+        Staffs = await _client.GetFromJsonAsync<List<Staff>>($"{Endpoints.StaffEndpoint}");
+    }
+    async Task Delete(int staffID)
+    {
+        
     }
 }
