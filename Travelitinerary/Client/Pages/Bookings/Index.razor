@@ -1,0 +1,92 @@
+﻿
+@page "/bookings/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+@implements IDisposable
+<h3 class=" = card-title">Itinerary Bookings</h3>
+<br />
+
+<a href="/bookings/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Booking
+</a>
+<br />
+<br />
+
+@if (OtherBookings == null)
+{
+    <div class="alert alert-info">Loading Other Bookings...</div>
+}
+else
+{
+    <table class="table table-responsive" id="otherBookingsTable">
+        <thead>
+            <tr>
+                <th>Other Booking Id</th>
+                <th>Other Booking Attribute</th>
+                <th>Date</th>
+                <th>Duration in days</th>
+                <th>Other Attribute</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var otherBooking in OtherBookings)
+            {
+                <tr>
+                    <td>@otherBooking.Id</td>
+                    <td>@otherBooking.OtherAttribute</td>
+                    <td>@otherBooking.DateCreated.Date.ToString("dd MMMM yyyy")</td>
+                    <td>@(otherBooking.DateIn != null ? (otherBooking.DateIn.Value - otherBooking.DateOut).TotalDays.ToString() : "To Be Determined")</td>
+                    <td>@otherBooking.OtherAttribute</td>
+                    <td>
+                        <a href="/otherbookings/view/@otherBooking.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/otherbookings/edit/@otherBooking.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=> DeleteOtherBooking(otherBooking.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<Booking>? Bookings;
+    private DateTime nullDT = new DateTime(1, 1, 1, 0, 0, 0);
+
+    protected async override Task OnInitializedAsync()
+    {
+        Bookings = await _client.GetFromJsonAsync<List<Booking>>($"{Endpoints.BookingsEndPoint}");
+    }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    }
+    public void Dispose()
+    {
+        js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+
+    }
+    async Task Delete(int bookingId)
+    {
+        if (Bookings != null)
+        {
+            var booking = Bookings.First(q => q.Id == bookingId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {booking.Id}$");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.BookingsEndPoint}/{bookingId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}
