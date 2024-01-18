@@ -12,7 +12,7 @@ namespace Travelitinerary.Shared.Domain
         public string? Arrival { get; set; }
         public string? Departure { get; set; }
         public string? Details { get; set; }
-        public DayOfWeek WeekDay { get; set; }
+        public string? WeekDay { get; set; }
         public DateTime? CheckIn { get; set; }
         public string? SeatClass { get; set; }
         public int? Availableseats { get; set; }

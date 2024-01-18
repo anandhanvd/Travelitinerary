@@ -34,8 +34,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Configuration\Entities\" />
-  </ItemGroup>
-
 </Project>

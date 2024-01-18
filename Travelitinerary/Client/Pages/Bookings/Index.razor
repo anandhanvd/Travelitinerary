@@ -24,11 +24,13 @@ else
         <thead>
             <tr>
                 <th>Booking Id</th>
-                <th>Customer Name</th>
+                <th>Customer</th>
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Book Type</th>
+                <th>Itinerary</th>
                 <th>Actions</th>
+               
             </tr>
         </thead>
         <tbody>
@@ -40,6 +42,7 @@ else
                     <td>@booking.StartDate.Date.ToString("dd MMMM yyyy")</td>
                     <td>@booking.EndDate.Date.ToString("dd MMMM yyyy")</td>
                     <td>@booking.BookType</td>
+                    <td>@booking.Itinerary.Id</td>
                     <td>
                         <a href="/otherproject/bookings/view/@booking.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>

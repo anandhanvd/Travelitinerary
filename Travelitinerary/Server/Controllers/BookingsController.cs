@@ -109,7 +109,7 @@ namespace Travelitinerary.Server.Controllers
         public async Task<bool> BookingExists(int id)
 
         {
-            var booking = await _unitOfWork.Bookings.Get(q => q.Id == id);
+            var booking = await _unitOfWork.Bookings.GetAll(includes: q => q.Include(x =>x.Itinerary).Include(x => x.Customer));
             return booking != null;
         }
     }
