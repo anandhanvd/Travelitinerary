@@ -9,11 +9,11 @@ using Travelitinerary.Server.Data;
 
 #nullable disable
 
-namespace Travelitinerary.Server.Data.Migrations
+namespace Travelitinerary.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240118115952_AddedDefaultDataUser")]
-    partial class AddedDefaultDataUser
+    [Migration("20240124180714_updateDB_db1")]
+    partial class updateDB_db1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -751,7 +751,36 @@ namespace Travelitinerary.Server.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Staff");
+                    b.ToTable("Staffs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Temasek Poly",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(2004, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "tonggiakhanh.kevin@gmail.com",
+                            FirstName = "Kevin",
+                            Gender = "Male",
+                            HireDate = new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Tong",
+                            Phone = "886643347",
+                            Position = "assistant"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Temasek Poly",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Anand",
+                            Gender = "Male",
+                            HireDate = new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Position = "assistant"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

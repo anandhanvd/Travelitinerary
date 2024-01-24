@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travelitinerary.Server.Data;
 
 #nullable disable
 
-namespace Travelitinerary.Server.Data.Migrations
+namespace Travelitinerary.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240116072023_AddApplictionTables")]
-    partial class AddApplictionTables
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,7 +371,7 @@ namespace Travelitinerary.Server.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Travelitinerary.Shared.Domain.Activitiy", b =>
+            modelBuilder.Entity("Travelitinerary.Shared.Domain.Activity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -536,7 +533,7 @@ namespace Travelitinerary.Server.Data.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
+                    b.Property<float?>("Price")
                         .HasColumnType("real");
 
                     b.Property<string>("SeatClass")
@@ -545,12 +542,29 @@ namespace Travelitinerary.Server.Data.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WeekDay")
-                        .HasColumnType("int");
+                    b.Property<string>("WeekDay")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Flights");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AirlineName = "Blue Airlines",
+                            Arrival = "New York",
+                            Availableseats = 50,
+                            CheckIn = new DateTime(2024, 1, 17, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Departure = "Los Angeles",
+                            Details = "Direct flight with in-flight entertainment",
+                            Price = 500f,
+                            SeatClass = "Business Class",
+                            WeekDay = "Monday"
+                        });
                 });
 
             modelBuilder.Entity("Travelitinerary.Shared.Domain.Hotel", b =>
@@ -585,7 +599,7 @@ namespace Travelitinerary.Server.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
+                    b.Property<float?>("Price")
                         .HasColumnType("real");
 
                     b.Property<string>("RoomType")
@@ -597,6 +611,21 @@ namespace Travelitinerary.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Hotels");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Paris",
+                            CheckIn = new DateTime(2024, 1, 17, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            CheckOut = new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Details = "Luxurious hotel with spa and scenic view",
+                            Name = "Grand Hotel",
+                            Price = 300f,
+                            RoomType = "Deluxe Suite"
+                        });
                 });
 
             modelBuilder.Entity("Travelitinerary.Shared.Domain.Itinerary", b =>
@@ -712,7 +741,6 @@ namespace Travelitinerary.Server.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -720,7 +748,36 @@ namespace Travelitinerary.Server.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Staff");
+                    b.ToTable("Staffs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Temasek Poly",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(2004, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "tonggiakhanh.kevin@gmail.com",
+                            FirstName = "Kevin",
+                            Gender = "Male",
+                            HireDate = new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastName = "Tong",
+                            Phone = "886643347",
+                            Position = "assistant"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Temasek Poly",
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Anand",
+                            Gender = "Male",
+                            HireDate = new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Position = "assistant"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

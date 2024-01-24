@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Travelitinerary.Client.Pages;
-using Travelitinerary.Server.Configurations.Enitities;
+using Travelitinerary.Server.Configurations.Entities;
 using Travelitinerary.Server.Models;
 using Travelitinerary.Shared.Domain;
 
@@ -21,7 +21,7 @@ namespace Travelitinerary.Server.Data
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Itinerary> Itineraries { get; set; }
         public DbSet<ItineraryActivity> ItineraryActivities { get; set; }
-        public DbSet<Staff> Staff { get; set; }
+        public DbSet<Staff> Staffs { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Activity> Activities { get; set; }
@@ -31,6 +31,7 @@ namespace Travelitinerary.Server.Data
             base.OnModelCreating(builder);
             builder.ApplyConfiguration(new FlightSeedConfigurations());
             builder.ApplyConfiguration(new HotelSeedConfigurations());
+            builder.ApplyConfiguration(new StaffSeedConfiguration());
         }
     }
 }

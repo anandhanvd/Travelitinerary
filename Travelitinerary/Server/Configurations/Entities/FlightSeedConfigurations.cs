@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System.Drawing;
 
-namespace Travelitinerary.Server.Configurations.Enitities
+namespace Travelitinerary.Server.Configurations.Entities
 {
     public class FlightSeedConfigurations : IEntityTypeConfiguration<Flight>
     {
