@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Travelitinerary.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class updateDB_db1 : Migration
+    public partial class updateDB_1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

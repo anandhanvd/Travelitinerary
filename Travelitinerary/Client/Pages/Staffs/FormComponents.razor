@@ -49,7 +49,7 @@
     <div class="form-group">
         <label>D.O.B: </label>
         <div>
-            <InputText @bind-Value="@staff.DateOfBirth" class="form-control" />
+            <InputDate @bind-Value="@staff.DateOfBirth" class="form-control" />
             <ValidationMessage For="@(() => staff.DateOfBirth)" />
         </div>
     </div>
@@ -57,7 +57,7 @@
     <div class="form-group">
         <label>Hire Date: </label>
         <div>
-            <InputText @bind-Value="@staff.HireDate" class="form-control" />
+            <InputDate @bind-Value="@staff.HireDate" class="form-control" />
             <ValidationMessage For="@(() => staff.HireDate)" />
         </div>
     </div>

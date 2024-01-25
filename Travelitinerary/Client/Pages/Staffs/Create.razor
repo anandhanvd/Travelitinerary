@@ -6,7 +6,7 @@
 <hr />
 <br />
 
-<FormComponent ButtonText="Create Staff" staff="staff" OnValidSubmit="@CreateStaff" />
+<FormComponents ButtonText="Create Staff" staff="staff" OnValidSubmit="@CreateStaff" />
 
 
 @code {
@@ -22,6 +22,6 @@
     private async Task CreateStaff()
     {
         await _client.PostAsJsonAsync(Endpoints.StaffsEndpoint, staff);
-        _navManager.NavigateTo("/staff/");
+        _navManager.NavigateTo("/staffs/");
     }
 }
