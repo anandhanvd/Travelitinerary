@@ -1,10 +1,10 @@
-﻿@page "/hotels/Edit/{id:int}"
+﻿@page "/hotels/edit/{id:int}"
 @inject HttpClient _client
 @inject NavigationManager _navManager
 
 <h3>Edit Hotel</h3>
 
-<FormComponent ButtonText="Update" OnValidSubmit="EditHotels" hotel="hotel" />
+<FormComponent ButtonText="Update" OnValidSubmit="EditHotel" hotel="hotel" />
 
 @code {
     [Parameter] public int id { get; set; }
@@ -15,10 +15,9 @@
         hotel = await _client.GetFromJsonAsync<Hotel>($"{Endpoints.HotelEndpoint}/{id}");
     }
 
-    async Task EditHotels()
+    async Task EditHotel()
     {
         await _client.PutAsJsonAsync($"{Endpoints.HotelEndpoint}/{id}", hotel);
         _navManager.NavigateTo("/hotels/");
-
     }
 }

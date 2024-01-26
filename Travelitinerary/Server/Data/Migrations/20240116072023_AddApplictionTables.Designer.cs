@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travelitinerary.Server.Data;
 
 #nullable disable
 
-namespace Travelitinerary.Server.Migrations
+namespace Travelitinerary.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240116072023_AddApplictionTables")]
+    partial class AddApplictionTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -371,16 +374,13 @@ namespace Travelitinerary.Server.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Travelitinerary.Shared.Domain.Activity", b =>
+            modelBuilder.Entity("Travelitinerary.Shared.Domain.Activitiy", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<byte[]>("ActivityImage")
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -391,51 +391,12 @@ namespace Travelitinerary.Server.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Duration")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.Property<DateTime?>("TimeEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("TimeStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Activities");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedBy = "Kevin Tong",
-                            DateCreated = new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Room Cleaning",
-                            Duration = 4f,
-                            Name = "Kevin",
-                            Price = 56f,
-                            TimeEnd = new DateTime(2024, 1, 28, 23, 19, 4, 209, DateTimeKind.Local).AddTicks(2586),
-                            TimeStart = new DateTime(2024, 1, 28, 17, 19, 4, 209, DateTimeKind.Local).AddTicks(2572),
-                            Type = "Cleaning",
-                            UpdatedBy = "Arthur"
-                        });
                 });
 
             modelBuilder.Entity("Travelitinerary.Shared.Domain.Booking", b =>
@@ -549,7 +510,6 @@ namespace Travelitinerary.Server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AirlineName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Arrival")
@@ -576,7 +536,7 @@ namespace Travelitinerary.Server.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float?>("Price")
+                    b.Property<float>("Price")
                         .HasColumnType("real");
 
                     b.Property<string>("SeatClass")
@@ -585,29 +545,12 @@ namespace Travelitinerary.Server.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("WeekDay")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("WeekDay")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Flights");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AirlineName = "Blue Airlines",
-                            Arrival = "New York",
-                            Availableseats = 50,
-                            CheckIn = new DateTime(2024, 1, 17, 12, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Departure = "Los Angeles",
-                            Details = "Direct flight with in-flight entertainment",
-                            Price = 500f,
-                            SeatClass = "Business Class",
-                            WeekDay = "Monday"
-                        });
                 });
 
             modelBuilder.Entity("Travelitinerary.Shared.Domain.Hotel", b =>
@@ -642,7 +585,7 @@ namespace Travelitinerary.Server.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float?>("Price")
+                    b.Property<float>("Price")
                         .HasColumnType("real");
 
                     b.Property<string>("RoomType")
@@ -654,21 +597,6 @@ namespace Travelitinerary.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Hotels");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "Paris",
-                            CheckIn = new DateTime(2024, 1, 17, 14, 0, 0, 0, DateTimeKind.Unspecified),
-                            CheckOut = new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Details = "Luxurious hotel with spa and scenic view",
-                            Name = "Grand Hotel",
-                            Price = 300f,
-                            RoomType = "Deluxe Suite"
-                        });
                 });
 
             modelBuilder.Entity("Travelitinerary.Shared.Domain.Itinerary", b =>
@@ -682,22 +610,22 @@ namespace Travelitinerary.Server.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("DateCreated")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DateUpdated")
+                    b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("FlightId")
+                    b.Property<int?>("FlightsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("HotelId")
+                    b.Property<int?>("HotelsId")
                         .HasColumnType("int");
 
                     b.Property<string>("PackaageDetails")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("StaffId")
+                    b.Property<int?>("StaffId")
                         .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
@@ -708,9 +636,9 @@ namespace Travelitinerary.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FlightId");
+                    b.HasIndex("FlightsId");
 
-                    b.HasIndex("HotelId");
+                    b.HasIndex("HotelsId");
 
                     b.HasIndex("StaffId");
 
@@ -725,32 +653,19 @@ namespace Travelitinerary.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ActivityId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateScheduled")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("ItineraryId")
-                        .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ActivityId");
-
-                    b.HasIndex("ItineraryId");
 
                     b.ToTable("ItineraryActivities");
                 });
@@ -797,6 +712,7 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -804,36 +720,7 @@ namespace Travelitinerary.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Staffs");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "Temasek Poly",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(2004, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "tonggiakhanh.kevin@gmail.com",
-                            FirstName = "Kevin",
-                            Gender = "Male",
-                            HireDate = new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastName = "Tong",
-                            Phone = "886643347",
-                            Position = "assistant"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "Temasek Poly",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Anand",
-                            Gender = "Male",
-                            HireDate = new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Position = "assistant"
-                        });
+                    b.ToTable("Staff");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -908,74 +795,28 @@ namespace Travelitinerary.Server.Migrations
 
             modelBuilder.Entity("Travelitinerary.Shared.Domain.Itinerary", b =>
                 {
-                    b.HasOne("Travelitinerary.Shared.Domain.Flight", "Flight")
-                        .WithMany("Itinerary")
-                        .HasForeignKey("FlightId");
+                    b.HasOne("Travelitinerary.Shared.Domain.Flight", "Flights")
+                        .WithMany()
+                        .HasForeignKey("FlightsId");
 
-                    b.HasOne("Travelitinerary.Shared.Domain.Hotel", "Hotel")
-                        .WithMany("Itinerary")
-                        .HasForeignKey("HotelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Travelitinerary.Shared.Domain.Hotel", "Hotels")
+                        .WithMany()
+                        .HasForeignKey("HotelsId");
 
                     b.HasOne("Travelitinerary.Shared.Domain.Staff", "Staff")
-                        .WithMany("Itinerary")
-                        .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("StaffId");
 
-                    b.Navigation("Flight");
+                    b.Navigation("Flights");
 
-                    b.Navigation("Hotel");
+                    b.Navigation("Hotels");
 
                     b.Navigation("Staff");
-                });
-
-            modelBuilder.Entity("Travelitinerary.Shared.Domain.ItineraryActivity", b =>
-                {
-                    b.HasOne("Travelitinerary.Shared.Domain.Activity", "Activity")
-                        .WithMany("ItineraryActivity")
-                        .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Travelitinerary.Shared.Domain.Itinerary", "Itinerary")
-                        .WithMany("ItineraryActivity")
-                        .HasForeignKey("ItineraryId");
-
-                    b.Navigation("Activity");
-
-                    b.Navigation("Itinerary");
-                });
-
-            modelBuilder.Entity("Travelitinerary.Shared.Domain.Activity", b =>
-                {
-                    b.Navigation("ItineraryActivity");
                 });
 
             modelBuilder.Entity("Travelitinerary.Shared.Domain.Customer", b =>
                 {
                     b.Navigation("Bookings");
-                });
-
-            modelBuilder.Entity("Travelitinerary.Shared.Domain.Flight", b =>
-                {
-                    b.Navigation("Itinerary");
-                });
-
-            modelBuilder.Entity("Travelitinerary.Shared.Domain.Hotel", b =>
-                {
-                    b.Navigation("Itinerary");
-                });
-
-            modelBuilder.Entity("Travelitinerary.Shared.Domain.Itinerary", b =>
-                {
-                    b.Navigation("ItineraryActivity");
-                });
-
-            modelBuilder.Entity("Travelitinerary.Shared.Domain.Staff", b =>
-                {
-                    b.Navigation("Itinerary");
                 });
 #pragma warning restore 612, 618
         }
