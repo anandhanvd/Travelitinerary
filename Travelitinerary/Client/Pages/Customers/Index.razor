@@ -1,85 +1,94 @@
-﻿
-@page "/customers/"
+﻿@page "/customers/"
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class=" = card-title">Itinerary Customers</h3>
-<br />
+<div class="container">
+    <h3 class="card-title">Itinerary Customers</h3>
+    <br />
 
-<a href="/customers/create" class="btn btn-secondary">
-    <span class="oi oi-plus"></span>
-    Create New Customer
-</a>
-<br />
-<br />
+    <a href="/customers/create" class="btn btn-secondary">
+        <span class="oi oi-plus"></span>
+        Create New Customer
+    </a>
+    <br />
+    <br />
 
-@if (Customers == null)
-{
-    <div class="alert alert-info">Loading Customers...</div>
-}
-else
-{
-    <table class="table table-responsive" id="customersTable">
-        <thead>
-            <tr>
-                <th>Customer ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Nationality</th>
-                <th>Contact Number</th>
-                <th>Email Address</th>
-                <th>Username</th>
-                <th>Gender</th>
-                <th>Address</th>
-                <th>Date of Birth</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var customer in Customers)
-            {
+    @if (Customers == null)
+    {
+        <div class="alert alert-info">Loading Customers...</div>
+    }
+    else
+    {
+        <table class="table table-striped table-responsive" id="customersTable">
+            <thead>
                 <tr>
-                    <td>@customer.FirstName</td>
-                    <td>@customer.LastName</td>
-                    <td>@customer.Nationality</td>
-                    <td>@customer.ContactNumber</td>
-                    <td>@customer.EmailAddress</td>
-                    <td>@customer.Gender</td>
-                    <td>@customer.Address</td>
-                    <td>@customer.DateOfBirth.ToString("dd MMMM yyyy")</td>
-                    <td>
-                        <a href="/customers/view/@customer.Id" class="btn btn-primary">
-                            <span class="oi oi-eye"></span>
-                        </a>
-                        <a href="/customers/edit/@customer.Id" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=> Delete(customer.Id))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
+                    <th>Customer ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Nationality</th>
+                    <th>Contact Number</th>
+                    <th>Email Address</th>
+                    <th>Username</th>
+                    <th>Gender</th>
+                    <th>Address</th>
+                    <th>Date of Birth</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
+            </thead>
+            <tbody>
+                @foreach (var customer in Customers)
+                {
+                    <tr>
+                        <td>@customer.Id</td>
+                        <td>@customer.FirstName</td>
+                        <td>@customer.LastName</td>
+                        <td>@customer.Nationality</td>
+                        <td>@customer.ContactNumber</td>
+                        <td>@customer.EmailAddress</td>
+                        <td>@customer.Gender</td>
+                        <td>@customer.Address</td>
+                        <td>@customer.DateOfBirth.ToString("dd MMMM yyyy")</td>
+                        <td>
+                            <a href="/customers/view/@customer.Id" class="btn btn-primary" title="View">
+                                <span class="oi oi-eye"></span>
+                            </a>
+                            <a href="/customers/edit/@customer.Id" class="btn btn-warning" title="Edit">
+                                <span class="oi oi-pencil"></span>
+                            </a>
+                            <button class="btn btn-danger" @onclick="@(()=> Delete(customer.Id))" title="Delete">
+                                <span class="oi oi-delete"></span>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
 
 @code {
     private List<Customer>? Customers;
 
-    protected async override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         Customers = await _client.GetFromJsonAsync<List<Customer>>($"{Endpoints.CustomersEndpoint}");
     }
+
     async Task Delete(int customerId)
     {
         if (Customers != null)
         {
-            
-                await _client.DeleteAsync($"{Endpoints.CustomersEndpoint}/{customerId}");
-                await OnInitializedAsync();
+            var customer = Customers.FirstOrDefault(c => c.Id == customerId);
+            if (customer != null)
+            {
+                var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete Customer #{customer.Id}?");
+                if (confirm)
+                {
+                    await _client.DeleteAsync($"{Endpoints.CustomersEndpoint}/{customerId}");
+                    await OnInitializedAsync();
+                }
             }
-        
+        }
     }
 }

@@ -1,15 +1,15 @@
 ﻿@page "/hotels/create/"
 @inject HttpClient _client
-@inject NavigationManager _navManager   
+@inject NavigationManager _navManager
 
-<h3 class="card-title">Create New Hotel</h3>
-<hr/>
-<br/>
+<h3 class="card-title">Create </h3>
+<hr />
+<br />
 
-<FormComponent ButtonText="Create Hotel" hotel="hotel" OnValidSubmit="@CreateHotel" />
+<FormComponent ButtonText="Create Hotel" hotel="hotel" OnValidSubmit="@CreateHotels" />
 
 @code {
-    Hotel hotel = new Hotel();
+    Hotel hotel= new Hotel();
 
     private IList<Hotel>? Hotels;
 
@@ -18,9 +18,10 @@
         Hotels = await _client.GetFromJsonAsync<List<Hotel>>($"{Endpoints.HotelEndpoint}");
     }
 
-    private async Task CreateHotel()
+    private async Task CreateHotels()
     {
         await _client.PostAsJsonAsync(Endpoints.HotelEndpoint, hotel);
         _navManager.NavigateTo("/hotels/");
     }
+
 }
