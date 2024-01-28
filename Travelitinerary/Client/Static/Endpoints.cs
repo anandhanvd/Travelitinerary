@@ -10,8 +10,8 @@
         public static readonly string ItineraryEndpoint = $"{Prefix}/itineraries";
         public static readonly string HotelEndpoint = $"{Prefix}/hotels";
         public static readonly string FlightEndpoint = $"{Prefix}/flights";
-        public static readonly string ItineraryActivityEndpoint = $"{Prefix}/itineraryactivies";
-        public static readonly string ActivityEndpoint = $"{Prefix}/activies";
+        public static readonly string ItineraryActivityEndpoint = $"{Prefix}/itineraryactivities";
+        public static readonly string ActivityEndpoint = $"{Prefix}/activities";
 
 
     }

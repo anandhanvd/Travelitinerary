@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Travelitinerary.Shared.Domain
 {
@@ -16,8 +12,8 @@ namespace Travelitinerary.Shared.Domain
         public DateTime? CheckIn { get; set; }
         public string? RoomType { get; set; }
         public float? Price { get; set; }
+        public virtual ICollection<Itinerary>? Itinerary { get; set; }
 
     }
-
 }
 

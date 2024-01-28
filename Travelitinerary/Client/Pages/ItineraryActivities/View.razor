@@ -1,0 +1,17 @@
+﻿@page "/itineraryactivities/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View</h3>
+
+<FormComponents ButtonText="Create Itinerary Activity" ItineraryActivity="itineraryActivity" Disabled=true />
+
+@code {
+    [Parameter] public int id { get; set; }
+    ItineraryActivity? itineraryActivity = new ();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        itineraryActivity = await _client.GetFromJsonAsync<ItineraryActivity>($"{Endpoints.ItineraryActivityEndpoint}/{id}");
+    }
+}

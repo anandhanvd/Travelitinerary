@@ -3,7 +3,7 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
-@implements IDisposable
+@* @implements IDisposable *@
 <h3 class=" = card-title">Itinerary Bookings</h3>
 <br />
 
@@ -38,11 +38,11 @@ else
             {
                 <tr>
                     <td>@booking.Id</td>
-                    <td>@booking.Customer.FirstName</td>
+                    <td>@(booking.Customer is not null ? booking.Customer.FirstName:"")</td>
                     <td>@booking.StartDate.Date.ToString("dd MMMM yyyy")</td>
                     <td>@booking.EndDate.Date.ToString("dd MMMM yyyy")</td>
                     <td>@booking.BookType</td>
-                    <td>@booking.Itinerary.Id</td>
+                    <td>@(booking.Itinerary is not null ? booking.Itinerary.Id : "")</td>
                     <td>
                         <a href="/otherproject/bookings/view/@booking.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>
@@ -70,16 +70,16 @@ else
     {
         Bookings = await _client.GetFromJsonAsync<List<Booking>>($"{Endpoints.BookingsEndpoint}");
     }
-    protected async override Task OnAfterRenderAsync(bool firstRender)
-    {
+    // protected async override Task OnAfterRenderAsync(bool firstRender)
+    // {
 
-        await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
-    }
-    public void Dispose()
-    {
-        js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    //     await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    // }
+    //public void Dispose()
+    //{
+        //js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
 
-    }
+    //}
     async Task Delete(int bookingId)
     {
         if (Bookings != null)

@@ -1,0 +1,73 @@
+﻿@page "/itineraryactivities"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">Itinerary Activities</h3>
+<br />
+<a href="/itineraryactivities/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Itinerary Activity
+</a>
+<br />
+<br />
+
+@if (ItineraryActivities == null)
+{
+    <div class="alert alert-info">Loading Itinerary  Activities...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date Scheduled</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var itineraryActivity in ItineraryActivities)
+            {
+                <tr>
+                    <td>@itineraryActivity.Id</td>
+                    <td>@itineraryActivity.DateScheduled.ToString("dd MMM, yyyy")</td>
+                    <td>@itineraryActivity.DateCreated.ToString("dd MMM, yyyy")</td>
+                    <td>
+                        <a href="/itineraryActivities/view/@itineraryActivity.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/itineraryActivities/edit/@itineraryActivity.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(itineraryActivity.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<ItineraryActivity>? ItineraryActivities;
+
+    protected async override Task OnInitializedAsync()
+    {
+        ItineraryActivities = await _client.GetFromJsonAsync<List<ItineraryActivity>>($"{Endpoints.ItineraryActivityEndpoint}");
+    }
+
+    async Task Delete(int itineraryActivityId)
+    {
+        var itineraryActivity = ItineraryActivities.First(q => q.Id == itineraryActivityId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {itineraryActivity.Id}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"{Endpoints.ItineraryActivityEndpoint}/{itineraryActivityId}");
+            await OnInitializedAsync();
+        }
+    }
+}

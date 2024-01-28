@@ -6,22 +6,15 @@
 <hr />
 <br />
 
-<FormComponent ButtonText="Create Itinerary" itinerary="itinerary" OnValidSubmit="@CreateItinerary" />
-
+<FormComponents ButtonText="Create Itinerary" Itinerary="Itinerary" OnValidSubmit="@CreateItinerary" />
 
 @code {
-    Itinerary itinerary = new Itinerary();
-
-    private IList<Itinerary>? Itineraries;
-
-    protected async override Task OnInitializedAsync()
-    {
-        Itineraries = await _client.GetFromJsonAsync<List<Itinerary>>($"{Endpoints.ItineraryEndpoint}");
-    }
+    Itinerary Itinerary = new Itinerary();
 
     private async Task CreateItinerary()
     {
-        await _client.PostAsJsonAsync(Endpoints.ItineraryEndpoint, itinerary);
-        _navManager.NavigateTo("/itinerary/");
+        Itinerary.DateCreated = DateTime.Now;
+        await _client.PostAsJsonAsync(Endpoints.ItineraryEndpoint, Itinerary);
+        _navManager.NavigateTo("/itineraries");
     }
 }

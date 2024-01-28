@@ -1,0 +1,24 @@
+﻿@page "/itineraryactivities/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit Itinerary</h3>
+
+<FormComponents ButtonText="Update" OnValidSubmit="EditItineraryActivity" ItineraryActivity="ItineraryActivity" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    ItineraryActivity ItineraryActivity = new();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        ItineraryActivity = await _client.GetFromJsonAsync<ItineraryActivity>($"{Endpoints.ItineraryActivityEndpoint}/{id}");
+    }
+
+    async Task EditItineraryActivity()
+    {
+        ItineraryActivity.DateUpdated = DateTime.Now;
+        await _client.PutAsJsonAsync($"{Endpoints.ItineraryActivityEndpoint}/{id}", ItineraryActivity);
+        _navManager.NavigateTo("/itineraryactivities");
+    }
+}

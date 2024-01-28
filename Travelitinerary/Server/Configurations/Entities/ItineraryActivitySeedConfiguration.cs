@@ -5,9 +5,9 @@ using System.Drawing;
 
 namespace Travelitinerary.Server.Configurations.Entities
 {
-    public class ItinerariesSeedConfiguration : IEntityTypeConfiguration<Itinerary>
+    public class ItineraryActivitySeedConfiguration : IEntityTypeConfiguration<ItineraryActivity>
     {
-        public void Configure(EntityTypeBuilder<Itinerary> builder)
+        public void Configure(EntityTypeBuilder<ItineraryActivity> builder)
         {
 
         }

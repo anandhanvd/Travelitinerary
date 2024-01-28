@@ -1,0 +1,109 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@Itinerary" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <fieldset disabled="@Disabled">
+    <div class="form-group">
+        <label>Package Details: </label>
+        <div>
+            <InputText @bind-Value="@Itinerary.PackaageDetails" class="form-control" />
+            <ValidationMessage For="@(() => Itinerary.PackaageDetails)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Number of Days: </label>
+        <div>
+            <InputNumber @bind-Value="@Itinerary.no_of_days" class="form-control" />
+            <ValidationMessage For="@(() => Itinerary.no_of_days)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Created By: </label>
+        <div>
+            <InputText @bind-Value="@Itinerary.CreatedBy" class="form-control" />
+            <ValidationMessage For="@(() => Itinerary.CreatedBy)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Updated By: </label>
+        <div>
+            <InputText @bind-Value="@Itinerary.UpdatedBy" class="form-control" />
+            <ValidationMessage For="@(() => Itinerary.UpdatedBy)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Hotel: </label>
+        <InputSelect @bind-Value=Itinerary.HotelId class="form-control">
+            <option value="">-- Select Hotel --</option>
+            @if(Hotels is not null)
+            {
+                foreach(var hotel in Hotels)
+                {
+                    <option value="@hotel.Id">@hotel.Name</option>
+                }
+            }
+            <ValidationMessage For="@(() => Itinerary.HotelId)" />
+        </InputSelect>
+    </div>
+    <div class="form-group">
+        <label>Staff: </label>
+        <InputSelect @bind-Value=Itinerary.StaffId class="form-control">
+            <option value="">-- Select Staff --</option>
+            @if(Staffs is not null)
+            {
+                foreach(var staff in Staffs)
+                {
+                    <option value="@staff.Id">@staff.FirstName @staff.LastName</option>
+                }
+            }
+            <ValidationMessage For="@(() => Itinerary.StaffId)" />
+        </InputSelect>
+    </div>
+    <div class="form-group">
+        <label>Flight: </label>
+        <InputSelect @bind-Value=Itinerary.FlightId class="form-control">
+            <option value="">-- Select Flight --</option>
+            @if(Flights is not null)
+            {
+                foreach (var flight in Flights)
+                {
+                    <option value="@flight.Id">@flight.AirlineName</option>
+                }
+            }
+            <ValidationMessage For="@(() => Itinerary.FlightId)" />
+        </InputSelect>
+    </div>
+
+    </fieldset>
+
+
+    <br />
+    <br />
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Itinerary? Itinerary { get; set; } = new ();
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    List<Hotel> Hotels = new();
+    List<Staff> Staffs = new();
+    List<Flight> Flights = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        Hotels = await _client.GetFromJsonAsync<List<Hotel>>($"{Endpoints.HotelEndpoint}");
+        Staffs = await _client.GetFromJsonAsync<List<Staff>>($"{Endpoints.StaffsEndpoint}");
+        Flights = await _client.GetFromJsonAsync<List<Flight>>($"{Endpoints.FlightEndpoint}");
+    }
+}

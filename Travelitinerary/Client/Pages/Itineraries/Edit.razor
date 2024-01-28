@@ -4,20 +4,21 @@
 
 <h3>Edit Itinerary</h3>
 
-<FormComponents ButtonText="Update" OnValidSubmit="EditItinerary" itinerary="itinerary" />
+<FormComponents ButtonText="Update" OnValidSubmit="EditItinerary" Itinerary="Itinerary" />
 
 @code {
     [Parameter] public int id { get; set; }
-    Itinerary? itinerary = new Itinerary();
+    Itinerary Itinerary = new Itinerary();
 
     protected async override Task OnParametersSetAsync()
     {
-        itinerary = await _client.GetFromJsonAsync<Itinerary>($"{Endpoints.ItineraryEndpoint}/{id}");
+        Itinerary = await _client.GetFromJsonAsync<Itinerary>($"{Endpoints.ItineraryEndpoint}/{id}");
     }
 
     async Task EditItinerary()
     {
-        await _client.PutAsJsonAsync($"{Endpoints.ItineraryEndpoint}/{id}", itinerary);
-        _navManager.NavigateTo("/itineraries/");
+        Itinerary.DateUpdated = DateTime.Now;
+        await _client.PutAsJsonAsync($"{Endpoints.ItineraryEndpoint}/{id}", Itinerary);
+        _navManager.NavigateTo("/itineraries");
     }
 }

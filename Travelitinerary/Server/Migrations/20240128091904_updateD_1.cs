@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Travelitinerary.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class updateDB_1 : Migration
+    public partial class updateD_1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,6 +19,14 @@ namespace Travelitinerary.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimeStart = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    TimeEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Duration = table.Column<float>(type: "real", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ActivityImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -119,7 +127,7 @@ namespace Travelitinerary.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AirlineName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AirlineName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Arrival = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Departure = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -159,22 +167,6 @@ namespace Travelitinerary.Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Hotels", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ItineraryActivities",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItineraryActivities", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -352,13 +344,13 @@ namespace Travelitinerary.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    StaffId = table.Column<int>(type: "int", nullable: false),
+                    HotelId = table.Column<int>(type: "int", nullable: false),
+                    FlightId = table.Column<int>(type: "int", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     no_of_days = table.Column<int>(type: "int", nullable: false),
                     PackaageDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    FlightsId = table.Column<int>(type: "int", nullable: true),
-                    HotelsId = table.Column<int>(type: "int", nullable: true),
-                    StaffId = table.Column<int>(type: "int", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -366,20 +358,22 @@ namespace Travelitinerary.Server.Migrations
                 {
                     table.PrimaryKey("PK_Itineraries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Itineraries_Flights_FlightsId",
-                        column: x => x.FlightsId,
+                        name: "FK_Itineraries_Flights_FlightId",
+                        column: x => x.FlightId,
                         principalTable: "Flights",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Itineraries_Hotels_HotelsId",
-                        column: x => x.HotelsId,
+                        name: "FK_Itineraries_Hotels_HotelId",
+                        column: x => x.HotelId,
                         principalTable: "Hotels",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Itineraries_Staffs_StaffId",
                         column: x => x.StaffId,
                         principalTable: "Staffs",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -417,6 +411,41 @@ namespace Travelitinerary.Server.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "ItineraryActivities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ItineraryId = table.Column<int>(type: "int", nullable: true),
+                    ActivityId = table.Column<int>(type: "int", nullable: false),
+                    DateScheduled = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItineraryActivities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItineraryActivities_Activities_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "Activities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ItineraryActivities_Itineraries_ItineraryId",
+                        column: x => x.ItineraryId,
+                        principalTable: "Itineraries",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Activities",
+                columns: new[] { "Id", "ActivityImage", "CreatedBy", "DateCreated", "DateUpdated", "Description", "Duration", "Name", "Price", "TimeEnd", "TimeStart", "Type", "UpdatedBy" },
+                values: new object[] { 1, null, "Kevin Tong", new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified), "Room Cleaning", 4f, "Kevin", 56f, new DateTime(2024, 1, 28, 23, 19, 4, 209, DateTimeKind.Local).AddTicks(2586), new DateTime(2024, 1, 28, 17, 19, 4, 209, DateTimeKind.Local).AddTicks(2572), "Cleaning", "Arthur" });
 
             migrationBuilder.InsertData(
                 table: "Flights",
@@ -498,19 +527,29 @@ namespace Travelitinerary.Server.Migrations
                 column: "Expiration");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Itineraries_FlightsId",
+                name: "IX_Itineraries_FlightId",
                 table: "Itineraries",
-                column: "FlightsId");
+                column: "FlightId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Itineraries_HotelsId",
+                name: "IX_Itineraries_HotelId",
                 table: "Itineraries",
-                column: "HotelsId");
+                column: "HotelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Itineraries_StaffId",
                 table: "Itineraries",
                 column: "StaffId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItineraryActivities_ActivityId",
+                table: "ItineraryActivities",
+                column: "ActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItineraryActivities_ItineraryId",
+                table: "ItineraryActivities",
+                column: "ItineraryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Keys_Use",
@@ -541,9 +580,6 @@ namespace Travelitinerary.Server.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Activities");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -582,6 +618,9 @@ namespace Travelitinerary.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Activities");
 
             migrationBuilder.DropTable(
                 name: "Itineraries");

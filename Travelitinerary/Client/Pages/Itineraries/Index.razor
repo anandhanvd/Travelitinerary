@@ -1,10 +1,16 @@
-﻿@page "/itineraries/"
+﻿@page "/itineraries"
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
 
 <h3 class="card-title">Itineraries</h3>
-
+<br />
+<a href="itineraries/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Itinerary
+</a>
+<br />
+<br />
 
 @if (Itineraries == null)
 {
@@ -15,7 +21,10 @@ else
     <table class="table table-responsive">
         <thead>
             <tr>
-                <th>Name</th>
+                <th>Package Details</th>
+                <th>Date Created</th>
+                <th>Date Updated</th>
+                <th>Number of Days</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -25,6 +34,9 @@ else
             {
                 <tr>
                     <td>@itinerary.PackaageDetails</td>
+                    <td>@(itinerary.DateCreated.HasValue ? itinerary.DateCreated.Value.ToString("dd MMM, yyyy") : "-")</td>
+                    <td>@(itinerary.DateUpdated.HasValue ? itinerary.DateUpdated.Value.ToString("dd MMM, yyyy") : "-")</td>
+                    <td>@itinerary.no_of_days</td>
                     <td>
                         <a href="/itineraries/view/@itinerary.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>

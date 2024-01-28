@@ -1,0 +1,144 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@Activity" OnValidSubmit="@OnSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    @if (Activity.ActivityImage is not null && Disabled)
+    {
+        <div class="d-flex justify-content-center py-2 px-2">
+            <img width="300" height="200" style="object-fit:contain;" src="@ConvertByteArrayToBase64(Activity.ActivityImage)" alt="image" />
+        </div>
+    }
+
+    <fieldset disabled="@Disabled">
+    <div class="form-group">
+        <label>Activity Name: </label>
+        <div>
+            <InputText @bind-Value="@Activity.Name" class="form-control" />
+            <ValidationMessage For="@(() => Activity.Name)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Type: </label>
+        <div>
+            <InputText @bind-Value="@Activity.Type" class="form-control" />
+            <ValidationMessage For="@(() => Activity.Type)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Description: </label>
+        <div>
+            <InputText @bind-Value="@Activity.Description" class="form-control" />
+            <ValidationMessage For="@(() => Activity.Description)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Price: </label>
+        <div>
+                <InputNumber @bind-Value="@Activity.Price" class="form-control" />
+                <ValidationMessage For="@(() => Activity.Price)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Start Time: </label>
+        <div>
+            <input type="time" @bind-value="StartTime">
+        </div>
+    </div>
+    <div class="form-group">
+        <label>End  Time: </label>
+        <div>
+            <input type="time" @bind-value="EndTime">
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Duration: </label>
+        <div>
+                <InputNumber @bind-Value="@Activity.Duration" class="form-control" />
+                <ValidationMessage For="@(() => Activity.Duration)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Updated By: </label>
+        <div>
+                <InputText @bind-Value="@Activity.UpdatedBy" class="form-control" />
+                <ValidationMessage For="@(() => Activity.UpdatedBy)" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Created By: </label>
+        <div>
+            <InputText @bind-Value="@Activity.CreatedBy" class="form-control" />
+            <ValidationMessage For="@(() => Activity.CreatedBy)" />
+        </div>
+    </div>
+    @if (!Disabled)
+    {
+        <div class="form-group">
+            <label>Image:</label>
+            <div>
+                <InputFile  OnChange="HandleFileChange" accept=".png,.jpg,.jpeg" />
+            </div>
+                @if(!Disabled && Activity.ActivityImage is not null)
+                {
+                    <div class="py-2">
+                        <img width="300" height="200" style="object-fit:contain;" src="@ConvertByteArrayToBase64(Activity.ActivityImage)" alt="image" />
+                    </div>
+                }
+            </div>
+    }
+
+    </fieldset>
+
+    <br />
+    <br />
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Activity? Activity { get; set; } = new();
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    [Parameter] public TimeOnly? StartTime { get; set; }
+    [Parameter] public TimeOnly? EndTime { get; set; }
+
+    private const long Max_File_Size = 10 * 1024 * 1024;
+    private IBrowserFile selectedFile;
+
+    private async Task HandleFileChange(InputFileChangeEventArgs e)
+    {
+        selectedFile = e.File;
+        Activity.ActivityImage = new byte[selectedFile.Size];
+        await selectedFile.OpenReadStream(Max_File_Size).ReadAsync(Activity.ActivityImage);
+    }
+
+    public async void OnSubmit()
+    {
+        if (StartTime is null)
+            Activity.TimeStart = null;
+        else
+            Activity.TimeStart = DateTime.MinValue + StartTime.Value.ToTimeSpan();
+
+        if (EndTime is null)
+            Activity.TimeEnd = null;
+        else
+            Activity.TimeEnd = DateTime.MinValue + EndTime.Value.ToTimeSpan();
+
+        await OnValidSubmit.InvokeAsync();
+    }
+
+    private string ConvertByteArrayToBase64(byte[] image)
+    {
+        var base64 = Convert.ToBase64String(image);
+        return String.Format("data:image/gif;base64,{0}", base64);
+    }
+}

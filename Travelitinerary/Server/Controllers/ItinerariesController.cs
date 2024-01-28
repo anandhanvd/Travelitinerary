@@ -22,7 +22,7 @@ namespace Travelitinerary.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetItineraries()
         {
-            var itineraries = await _unitOfWork.Itineraries.GetAll(includes: q => q.Include(x => x.Flights).Include(x => x.Hotels).Include(x => x.Staff));
+            var itineraries = await _unitOfWork.Itineraries.GetAll(includes: q => q.Include(x => x.Flight).Include(x => x.Hotel).Include(x => x.Staff));
             return Ok(itineraries);
         }
 

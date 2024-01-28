@@ -1,0 +1,25 @@
+﻿@page "/activities/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View Activity</h3>
+
+<FormComponents StartTime="@StartTime" EndTime="@EndTime" Disabled=true Activity="@Activity" />
+<br/>
+
+@code {
+    [Parameter] public int id { get; set; }
+    Activity Activity = new Activity();
+    TimeOnly? StartTime { get; set; }
+    TimeOnly? EndTime { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        Activity = await _client.GetFromJsonAsync<Activity>($"{Endpoints.ActivityEndpoint}/{id}");
+        if (Activity is not null)
+        {
+            StartTime = Activity.TimeStart is not null ? TimeOnly.FromTimeSpan(Activity.TimeStart.Value.TimeOfDay) : null;
+            EndTime = Activity.TimeEnd is not null ? TimeOnly.FromTimeSpan(Activity.TimeEnd.Value.TimeOfDay) : null;
+        }
+    }
+}

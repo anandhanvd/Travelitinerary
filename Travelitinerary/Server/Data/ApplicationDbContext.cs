@@ -32,6 +32,9 @@ namespace Travelitinerary.Server.Data
             builder.ApplyConfiguration(new FlightSeedConfigurations());
             builder.ApplyConfiguration(new HotelSeedConfigurations());
             builder.ApplyConfiguration(new StaffSeedConfiguration());
+            builder.ApplyConfiguration(new ActivitySeedConfiguration());
+            builder.ApplyConfiguration(new ItinerariesSeedConfiguration());
+            builder.ApplyConfiguration(new ItineraryActivitySeedConfiguration());
         }
     }
 }

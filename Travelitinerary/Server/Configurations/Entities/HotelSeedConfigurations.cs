@@ -11,7 +11,8 @@ namespace Travelitinerary.Server.Configurations.Entities
         {
             builder.HasData(
                 new Hotel
-                {   Id=1,
+                {
+                    Id = 1,
                     Name = "Grand Hotel",
                     Address = "Paris",
                     Details = "Luxurious hotel with spa and scenic view",
@@ -20,7 +21,7 @@ namespace Travelitinerary.Server.Configurations.Entities
                     RoomType = "Deluxe Suite",
                     Price = 300.00f
                 }
-                );
+            );
         }
     }
 }

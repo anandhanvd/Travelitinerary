@@ -22,9 +22,8 @@ namespace Travelitinerary.Server.Configurations.Entities
                     SeatClass = "Business Class",
                     Availableseats = 50,
                     Price = 500.00f
-
                 }
-                );
+            );
         }
     }
 }

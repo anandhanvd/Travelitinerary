@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Travelitinerary.Shared.Domain
 {
     public class Flight : BaseDomainModel
     {
-        public string? AirlineName{ get; set;}
+        public string AirlineName{ get; set;}
         public string? Arrival { get; set; }
         public string? Departure { get; set; }
         public string? Details { get; set; }
@@ -17,5 +13,6 @@ namespace Travelitinerary.Shared.Domain
         public string? SeatClass { get; set; }
         public int? Availableseats { get; set; }
         public float? Price { get; set; }
+        public virtual ICollection<Itinerary>? Itinerary { get; set;}
     }
 }
