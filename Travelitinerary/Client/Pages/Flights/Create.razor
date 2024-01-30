@@ -1,29 +1,27 @@
-﻿
-@page "/flights/create/"
+﻿@page "/flights/create/"
 @inject HttpClient _client
-@inject NavigationManager _navManager   
+@inject NavigationManager _navManager
 
-<h3 class="card-title">Create New Flight</h3>
-<hr/>
-<br/>
+<h3 class="card-title">Create </h3>
+<hr />
+<br />
 
-<FormComponent ButtonText="Create Flight" flight="flight" OnValidSubmit="@CreateFlight" />
+<FormComponent ButtonText="Create Flight" flights="flights" OnValidSubmit="@CreateFlights" />
 
 @code {
-    Flight flight = new Flight();
+    Flight flights = new Flight();
 
     private IList<Flight>? Flights;
-    
 
     protected async override Task OnInitializedAsync()
     {
         Flights = await _client.GetFromJsonAsync<List<Flight>>($"{Endpoints.FlightEndpoint}");
-       
     }
 
-    private async Task CreateFlight()
+    private async Task CreateFlights()
     {
-        await _client.PostAsJsonAsync(Endpoints.FlightEndpoint, flight);
+        await _client.PostAsJsonAsync(Endpoints.FlightEndpoint, flights);
         _navManager.NavigateTo("/flights/");
     }
+
 }

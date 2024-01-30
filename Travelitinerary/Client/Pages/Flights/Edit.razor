@@ -4,21 +4,21 @@
 
 <h3>Edit Flight</h3>
 
-<FormComponent ButtonText="Update" OnValidSubmit="EditFlight" flight="flight" />
+<FormComponent ButtonText="Update" OnValidSubmit="EditFlight" flights="flights" />
 
 @code {
     [Parameter] public int id { get; set; }
-    Flight? flight = new Flight();
-     
+    Flight? flights = new Flight();
+
 
     protected async override Task OnParametersSetAsync()
     {
-        flight = await _client.GetFromJsonAsync<Flight>($"{Endpoints.FlightEndpoint}/{id}");
+        flights = await _client.GetFromJsonAsync<Flight>($"{Endpoints.FlightEndpoint}/{id}");
     }
 
     async Task EditFlight()
     {
-        await _client.PutAsJsonAsync($"{Endpoints.FlightEndpoint}/{id}", flight);
+        await _client.PutAsJsonAsync($"{Endpoints.FlightEndpoint}/{id}", flights);
         _navManager.NavigateTo("/flights/");
     }
 }

@@ -1,0 +1,120 @@
+@inject HttpClient _client
+@using Travelitinerary.Client.Components
+<!-- Your Blazor component code for bookings -->
+<EditForm Model="@booking" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Start Date: </label>
+            <div>
+                <InputDate @bind-Value="@booking.StartDate" class="form-control" />
+                <ValidationMessage For="@(() => booking.StartDate)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>End Date: </label>
+            <div>
+                <InputDate @bind-Value="@booking.EndDate" class="form-control" />
+                <ValidationMessage For="@(() => booking.EndDate)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Book Type: </label>
+            <div>
+                <select @bind="booking.BookType" class="form-control">
+                    <option value="Fiction">Fiction</option>
+                    <option value="Non-Fiction">Non-Fiction</option>
+                    <!-- Add more options as needed -->
+                </select>
+                <ValidationMessage For="@(() => booking.BookType)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Book Title: </label>
+            <div>
+                <InputText @bind-Value="@booking.BookTitle" class="form-control" />
+                <ValidationMessage For="@(() => booking.BookTitle)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Book Description: </label>
+            <div>
+                <InputText @bind-Value="@booking.BookDescription" class="form-control" />
+                <ValidationMessage For="@(() => booking.BookDescription)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Itinerary: </label>
+            <InputSelect @bind-Value=booking.ItineraryID class="form-control">
+                <option value="">-- Select Itinerary --</option>
+                @if (Itineraries is not null)
+                {
+                    foreach (var itinerary in Itineraries)
+                    {
+                        <option value="@itinerary.Id">@itinerary.PackaageDetails</option>
+                    }
+                }
+                <ValidationMessage For="@(() => booking.ItineraryID)" />
+            </InputSelect>
+        </div>
+
+        <div class="form-group">
+            <label>Customer: </label>
+            <InputSelect @bind-Value=booking.CustomerID class="form-control">
+                <option value="">-- Select Customer --</option>
+                @if (Customers is not null)
+                {
+                    foreach (var customer in Customers)
+                    {
+                        <option value="@customer.Id">@customer.FirstName</option>
+                    }
+                }
+                <ValidationMessage For="@(() => booking.CustomerID)" />
+            </InputSelect>
+        </div>
+
+        <div class="form-group">
+            <label>Available Slots: </label>
+            <div>
+                <InputNumber @bind-Value="@booking.AvailableSlots" class="form-control" />
+                <ValidationMessage For="@(() => booking.AvailableSlots)" />
+            </div>
+        </div>
+
+    </fieldset>
+
+    <br />
+    <br />
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+
+    <BackToList Target="bookings" />
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Booking? booking { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    List<Itinerary> Itineraries = new();
+    List<Customer> Customers = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        Itineraries = await _client.GetFromJsonAsync<List<Itinerary>>($"{Endpoints.ItineraryEndpoint}");
+        Customers = await _client.GetFromJsonAsync<List<Customer>>($"{Endpoints.CustomersEndpoint}");
+    }
+}

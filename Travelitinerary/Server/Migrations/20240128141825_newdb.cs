@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Travelitinerary.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class updateD_1 : Migration
+    public partial class newdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -445,7 +445,7 @@ namespace Travelitinerary.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Activities",
                 columns: new[] { "Id", "ActivityImage", "CreatedBy", "DateCreated", "DateUpdated", "Description", "Duration", "Name", "Price", "TimeEnd", "TimeStart", "Type", "UpdatedBy" },
-                values: new object[] { 1, null, "Kevin Tong", new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified), "Room Cleaning", 4f, "Kevin", 56f, new DateTime(2024, 1, 28, 23, 19, 4, 209, DateTimeKind.Local).AddTicks(2586), new DateTime(2024, 1, 28, 17, 19, 4, 209, DateTimeKind.Local).AddTicks(2572), "Cleaning", "Arthur" });
+                values: new object[] { 1, null, "Kevin Tong", new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified), "Room Cleaning", 4f, "Kevin", 56f, new DateTime(2024, 1, 29, 4, 18, 25, 172, DateTimeKind.Local).AddTicks(3972), new DateTime(2024, 1, 28, 22, 18, 25, 172, DateTimeKind.Local).AddTicks(3963), "Cleaning", "Arthur" });
 
             migrationBuilder.InsertData(
                 table: "Flights",

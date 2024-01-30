@@ -6,11 +6,12 @@
 <h3 class="card-title">Itinerary Flights</h3>
 <br />
 
-<a href="/flights/create" class="btn btn-secondary">
-    <span class="oi oi-plus"></span>
-    Create New Flight
-</a>
-<br />
+<div class="d-flex justify-content-between">
+    <a href="/flights/create" class="btn btn-secondary">
+        <span class="oi oi-plus"></span>
+        Create New Flight
+    </a>
+</div>
 <br />
 
 @if (Flights == null)
@@ -19,51 +20,37 @@
 }
 else
 {
-    <table class="table table-responsive" id="flightsTable">
-        <thead>
-            <tr>
-                <th>Flight ID</th>
-                <th>Airline</th>
-                <th>Departure</th>
-                <th>Arrival</th>
-                <th>Details</th>
-                <th>Week Day</th>
-                <th>Check-In</th>
-                <th>Seat Class</th>
-                <th>Available Seats</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var flight in Flights)
-            {
-                <tr>
-                    <td>@flight.Id</td>
-                    <td>@flight.AirlineName</td>
-                    <td>@flight.Departure</td>
-                    <td>@flight.Arrival</td>
-                    <td>@flight.Details</td>
-                    <td>@flight.WeekDay</td>
-                    <td>@(flight.CheckIn.HasValue ? flight.CheckIn.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Not specified")</td>
-                    <td>@flight.SeatClass</td>
-                    <td>@flight.Availableseats</td>
-                    <td>@flight.Price</td>
-                    <td>
+    <div class="row">
+        @foreach (var flight in Flights)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@flight.AirlineName</h5>
+                        <p class="card-text"><strong>Departure:</strong> @flight.Departure</p>
+                        <p class="card-text"><strong>Arrival:</strong> @flight.Arrival</p>
+                        <p class="card-text"><strong>Details:</strong> @flight.Details</p>
+                        <p class="card-text"><strong>Week Day:</strong> @flight.WeekDay</p>
+                        <p class="card-text"><strong>Check-In:</strong> @(flight.CheckIn.HasValue ? flight.CheckIn.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Not specified")</p>
+                        <p class="card-text"><strong>Seat Class:</strong> @flight.SeatClass</p>
+                        <p class="card-text"><strong>Available Seats:</strong> @flight.Availableseats</p>
+                        <p class="card-text"><strong>Price:</strong> @flight.Price</p>
+                    </div>
+                    <div class="card-footer">
                         <a href="/flights/view/@flight.Id" class="btn btn-primary">
-                            <span class="oi oi-eye"></span>
+                            <span class="oi oi-eye"></span> View
                         </a>
                         <a href="/flights/edit/@flight.Id" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
+                            <span class="oi oi-pencil"></span> Edit
                         </a>
                         <button class="btn btn-danger" @onclick="@(()=> DeleteFlight(flight.Id))">
-                            <span class="oi oi-delete"></span>
+                            <span class="oi oi-delete"></span> Delete
                         </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
 
 @code {

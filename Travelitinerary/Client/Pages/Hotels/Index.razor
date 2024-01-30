@@ -1,8 +1,8 @@
-﻿@layout Second
-@page "/hotels/"
+﻿@page "/hotels/"
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+
 
 <h3 class="card-title">Itinerary Hotels</h3>
 <br />
@@ -14,54 +14,42 @@
 <br />
 <br />
 
-@if (Hotels == null)
-{
-    <div class="alert alert-info">Loading Hotels...</div>
-}
-else
-{
-    <table class="table table-responsive" id="hotelsTable">
-        <thead>
-            <tr>
-                <th>Hotel ID</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Details</th>
-                <th>Check-In</th>
-                <th>Check-Out</th>
-                <th>Room Type</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var hotel in Hotels)
-            {
-                <tr>
-                    <td>@hotel.Id</td>
-                    <td>@hotel.Name</td>
-                    <td>@hotel.Address</td>
-                    <td>@hotel.Details</td>
-                    <td>@(hotel.CheckIn.HasValue ? hotel.CheckIn.Value.ToString("yyyy-MM-dd") : "Not specified")</td>
-                    <td>@hotel.CheckOut.ToString("yyyy-MM-dd")</td>
-                    <td>@hotel.RoomType</td>
-                    <td>@hotel.Price</td>
-                    <td>
+<div class="card-deck">
+    @if (Hotels == null)
+    {
+        <div class="alert alert-info">Loading Hotels...</div>
+    }
+    else
+    {
+        @foreach (var hotel in Hotels)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@hotel.Name</h5>
+                    <p class="card-text">
+                        <strong>Address:</strong> @hotel.Address <br />
+                        <strong>Details:</strong> @hotel.Details <br />
+                        <strong>Check-In:</strong> @(hotel.CheckIn.HasValue ? hotel.CheckIn.Value.ToString("yyyy-MM-dd") : "Not specified") <br />
+                        <strong>Check-Out:</strong> @hotel.CheckOut.ToString("yyyy-MM-dd") <br />
+                        <strong>Room Type:</strong> @hotel.RoomType <br />
+                        <strong>Price:</strong> @hotel.Price
+                    </p>
+                    <div class="btn-group" role="group" aria-label="Hotel Actions">
                         <a href="/hotels/view/@hotel.Id" class="btn btn-primary">
-                            <span class="oi oi-eye"></span>
+                            <span class="oi oi-eye"></span> View
                         </a>
                         <a href="/hotels/edit/@hotel.Id" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
+                            <span class="oi oi-pencil"></span> Edit
                         </a>
                         <button class="btn btn-danger" @onclick="@(()=> DeleteHotel(hotel.Id))">
-                            <span class="oi oi-delete"></span>
+                            <span class="oi oi-delete"></span> Delete
                         </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
 
 @code {
     private List<Hotel>? Hotels;

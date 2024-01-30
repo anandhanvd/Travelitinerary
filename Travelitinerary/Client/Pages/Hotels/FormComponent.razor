@@ -1,0 +1,83 @@
+@using Travelitinerary.Client.Components
+<EditForm Model="@hotel" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Name: </label>
+            <div>
+                <InputText @bind-Value="@hotel.Name" class="form-control" />
+                <ValidationMessage For="@(() => hotel.Name)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Address: </label>
+            <div>
+                <InputText @bind-Value="@hotel.Address" class="form-control" />
+                <ValidationMessage For="@(() => hotel.Address)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Details: </label>
+            <div>
+                <InputText @bind-Value="@hotel.Details" class="form-control" />
+                <ValidationMessage For="@(() => hotel.Details)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>CheckOut: </label>
+            <div>
+                <InputDate @bind-Value="@hotel.CheckOut" class="form-control" />
+                <ValidationMessage For="@(() => hotel.CheckOut)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>CheckIn: </label>
+            <div>
+                <InputDate @bind-Value="@hotel.CheckIn" class="form-control" />
+                <ValidationMessage For="@(() => hotel.CheckIn)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>RoomType: </label>
+            <div>
+                <InputText @bind-Value="@hotel.RoomType" class="form-control" />
+                <ValidationMessage For="@(() => hotel.RoomType)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Price: </label>
+            <div>
+                <InputNumber @bind-Value="@hotel.Price" class="form-control" />
+                <ValidationMessage For="@(() => hotel.Price)" />
+            </div>
+        </div>
+    </fieldset>
+
+    <br />
+    <br />
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+
+    <BackToList Target="hotels"/>
+
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Hotel? hotel { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}
