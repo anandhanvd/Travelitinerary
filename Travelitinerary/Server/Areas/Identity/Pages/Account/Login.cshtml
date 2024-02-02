@@ -7,7 +7,9 @@
 
 <style>
     body {
-        background-color: #f8f9fa; /* Set your desired background color */
+        background-color: lightgoldenrodyellow; /* Set your desired background color */
+        margin: 0;
+        font-family: 'Arial', sans-serif;
     }
 
     .login-container {
@@ -15,39 +17,57 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-image: url('https://images.pexels.com/photos/620337/pexels-photo-620337.jpeg?cs=srgb&dl=pexels-tobi-620337.jpg&fm=jpg'); /* Replace with your background image URL */
-        background-size: cover;
-        background-position: center;
-        display: flex;
     }
 
-    .login-card {
-        background-color: lightblue; /* Semi-transparent white background for the card */
+    #loginCard {
+        max-width: 600px;
+        margin: auto;
+        margin-top: 50px;
+        background-color: white;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    #loginImage {
+        width: 50%;
+        float: left;
+        overflow: hidden;
+    }
+
+    #loginFormContainer {
+        width: 50%;
+        float: left;
         padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
-        .login-card h2 {
-            color: #007bff; /* Set your desired text color */
-        }
-
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
+    #loginForm {
+        margin-top: 20px;
     }
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
+    .form-floating input {
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid #ced4da; /* Adding bottom border for better visibility */
+        font-size: 14px;
+    }
+
+    #loginSubmit {
+        background-color: red;
+        border: none;
+        border-radius: 5px;
+        color: white;
+    }
 </style>
 
 <div class="login-container">
-    <div class="col-md-4">
-        <section class="login-card">
-            <form id="account" method="post">
-                <h2>ACE TOURS</h2>
+    <div id="loginCard">
+        <div id="loginImage">
+            <img src="https://heritagerajasthantourism.com/images/package1.jpg" alt="Login Image" ;">
+        </div>
+        <div id="loginFormContainer">
+            <form id="account" method="post" id="loginForm">
+                <h2 style="text-align: center;">ACE TOURS</h2>
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
@@ -67,7 +87,7 @@
                     </label>
                 </div>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="loginSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
                 </div>
                 <div>
                     <p>
@@ -81,7 +101,7 @@
                     </p>
                 </div>
             </form>
-        </section>
+        </div>
     </div>
 </div>
 

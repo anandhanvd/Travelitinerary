@@ -14,42 +14,35 @@
 
 @if (ItineraryActivities == null)
 {
-    <div class="alert alert-info">Loading Itinerary  Activities...</div>
+    <div class="alert alert-info">Loading Itinerary Activities...</div>
 }
 else
 {
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date Scheduled</th>
-                <th>Date Created</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var itineraryActivity in ItineraryActivities)
-            {
-                <tr>
-                    <td>@itineraryActivity.Id</td>
-                    <td>@itineraryActivity.DateScheduled.ToString("dd MMM, yyyy")</td>
-                    <td>@itineraryActivity.DateCreated.ToString("dd MMM, yyyy")</td>
-                    <td>
-                        <a href="/itineraryActivities/view/@itineraryActivity.Id" class="btn btn-primary">
-                            <span class="oi oi-book"></span>
-                        </a>
-                        <a href="/itineraryActivities/edit/@itineraryActivity.Id" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(itineraryActivity.Id))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="row">
+        @foreach (var itineraryActivity in ItineraryActivities)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Id: @itineraryActivity.Id</h5>
+                        <p class="card-text"><strong>Date Scheduled:</strong> @itineraryActivity.DateScheduled.ToString("dd MMM, yyyy")</p>
+                        <p class="card-text"><strong>Date Created:</strong> @itineraryActivity.DateCreated.ToString("dd MMM, yyyy")</p>
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <a href="/itineraryActivities/view/@itineraryActivity.Id" class="btn btn-primary">
+                                <span class="oi oi-book"></span>
+                            </a>
+                            <a href="/itineraryActivities/edit/@itineraryActivity.Id" class="btn btn-warning">
+                                <span class="oi oi-pencil"></span>
+                            </a>
+                            <button class="btn btn-danger" @onclick="@(()=>Delete(itineraryActivity.Id))">
+                                <span class="oi oi-delete"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
 
 @code {
