@@ -24,7 +24,7 @@ else
     <table class="table table-responsive" id="bookingsTable">
         <thead>
             <tr>
-                <th>Booking Id</th>
+                
                 <th>Customer</th>
                 <th>Start Date</th>
                 <th>End Date</th>
@@ -38,12 +38,12 @@ else
             @foreach (var booking in Bookings)
             {
                 <tr>
-                    <td>@booking.Id</td>
+                    
                     <td>@(booking.Customer is not null ? booking.Customer.FirstName:"")</td>
                     <td>@booking.StartDate.Date.ToString("dd MMMM yyyy")</td>
                     <td>@booking.EndDate.Date.ToString("dd MMMM yyyy")</td>
                     <td>@booking.BookType</td>
-                    <td>@(booking.Itinerary is not null ? booking.Itinerary.Id : "")</td>
+                    <td>@(booking.Itinerary is not null ? booking.Itinerary.PackaageDetails : "")</td>
                     <td>
                         <a href="/otherproject/bookings/view/@booking.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>
