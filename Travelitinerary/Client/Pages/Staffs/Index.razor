@@ -21,7 +21,7 @@ else
     <div class="row">
         @foreach (var staff in Staffs)
         {
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-1">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">@staff.FirstName</h5>
@@ -29,9 +29,10 @@ else
                                 <div><strong>Date of Birth:</strong> @staff.DateOfBirth.ToString("dd MMM, yyyy")</div>
                             <div><strong>Phone:</strong> @staff.Phone</div>
                         </div>
+
                         <div class="btn-group" role="group" aria-label="Actions">
                             <a href="/staffs/view/@staff.Id" class="btn btn-primary">
-                                <span class="oi oi-book"></span>
+                                <span class="oi oi-eye"></span>
                             </a>
                             <a href="/staffs/edit/@staff.Id" class="btn btn-warning">
                                 <span class="oi oi-pencil"></span>

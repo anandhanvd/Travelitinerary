@@ -1,4 +1,16 @@
-﻿@inject HttpClient _client
+﻿@using Travelitinerary.Client.Components
+@inject HttpClient _client
+
+
+<style>
+    label, .validation-message {
+        color: white; /* Set the color for labels and validation messages */
+    }
+
+    .form-control {
+        color: black; /* Set the color for input boxes */
+    }
+</style>
 
 <EditForm Model="@Itinerary" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
@@ -88,6 +100,8 @@
             @ButtonText
         </button>
     }
+    <BackToList Target="itineraries"/>
+
 </EditForm>
 
 @code {
