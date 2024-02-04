@@ -23,13 +23,11 @@ else
     <table class="table table-responsive" id="customersTable">
         <thead>
             <tr>
-                <th>Customer ID</th>
+                
                 <th>First Name</th>
-                <th>Last Name</th>
                 <th>Nationality</th>
                 <th>Contact Number</th>
                 <th>Email Address</th>
-                <th>Username</th>
                 <th>Gender</th>
                 <th>Address</th>
                 <th>Date of Birth</th>
@@ -41,13 +39,12 @@ else
             {
                 <tr>
                     <td>@customer.FirstName</td>
-                    <td>@customer.LastName</td>
                     <td>@customer.Nationality</td>
                     <td>@customer.ContactNumber</td>
                     <td>@customer.EmailAddress</td>
                     <td>@customer.Gender</td>
-                    <td>@customer.Address</td>
                     <td>@customer.DateOfBirth.ToString("dd MMMM yyyy")</td>
+                    <td>@customer.Address</td>
                     <td>
                         <a href="/customers/view/@customer.Id" class="btn btn-primary">
                             <span class="oi oi-eye"></span>

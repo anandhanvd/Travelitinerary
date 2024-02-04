@@ -1,4 +1,5 @@
-﻿@inject NavigationManager Navigation
+﻿
+@inject NavigationManager Navigation
 
 <div class="@NavMenuCssClass nav-scrollable navbar-dark" style="height:90px;display:flex;background:#1f2733" @onclick="ToggleNavMenu">
     <div class="container-fluid d-inline-flex">
@@ -104,6 +105,16 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void ShowNavMenu()
+    {
+        collapseNavMenu = false;
+    }
+
+    private void HideNavMenu()
+    {
+        collapseNavMenu = true;
     }
 
     private void BeginLogOut(MouseEventArgs args) => Navigation.NavigateToLogout("authentication/logout", "/");
