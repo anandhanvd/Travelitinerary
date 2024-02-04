@@ -3,7 +3,7 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class="card-title">Activities</h3>
+<h3 class="card-title text-white">Activities</h3>
 <br />
 <a href="/activities/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
@@ -18,59 +18,41 @@
 }
 else
 {
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Activity Type</th>
-                <th>Duration</th>
-                <th>Description</th>
-                <th>Starts At</th>
-                <th>Ends At</th>
-                <th>Price</th>
-                <th>Image</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var activity in Activities)
-            {
-                <tr>
-                    <td>@activity.Name</td>
-                    <td>@(activity.Type ?? "")</td>
-                    <td>@activity.Duration</td>
-                    <td>@(activity.Description ?? "")</td>
-                    <td>@(activity.TimeStart.HasValue ? activity.TimeStart.Value.ToString("hh : mm : tt") : "")</td>
-                    <td>@(activity.TimeEnd.HasValue ? activity.TimeEnd.Value.ToString("hh : mm : tt") : "")</td>
-                    <td>@activity.Price.ToString()$</td>
-                    <td>
-                        @if(activity.ActivityImage is not null){
-                            <img width="100" height="60" style="object-fit:contain;" src="@ConvertByteArrayToBase64(@activity.ActivityImage)" alt="image" />
+    <div class="row">
+        @foreach (var activity in Activities)
+        {
+            <div class="col-md-2 mb-1" style="min-width:316px">
+                <div class="card">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <h5 class="card-title">@activity.Name</h5>
+                        <p class="card-text"><strong>Activity Type:</strong> @(activity.Type ?? "")</p>
+                        <p class="card-text"><strong>Duration:</strong> @activity.Duration</p>
+                        <p class="card-text"><strong>Description:</strong> @(activity.Description ?? "")</p>
+                        <p class="card-text"><strong>Starts At:</strong> @(activity.TimeStart.HasValue ? activity.TimeStart.Value.ToString("hh : mm : tt") : "")</p>
+                        <p class="card-text"><strong>Ends At:</strong> @(activity.TimeEnd.HasValue ? activity.TimeEnd.Value.ToString("hh : mm : tt") : "")</p>
+                        <p class="card-text"><strong>Price:</strong> @activity.Price.ToString()$</p>
+                        @if (activity.ActivityImage is not null)
+                        {
+                            <!-- Adjust the width and height values as needed -->
+                            <img class="card-img-top" style="object-fit: contain;" src="@ConvertByteArrayToBase64(@activity.ActivityImage)" alt="Activity Image" />
                         }
-                    </td>
-                    <td>
-                        <a href="/activities/view/@activity.Id" class="btn btn-primary">
-                            <span class="oi oi-book"></span>
-                        </a>
-                        <a href="/activities/edit/@activity.Id" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(activity.Id))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <a href="/activities/view/@activity.Id" class="btn btn-primary">
+                                <span class="oi oi-book"></span>
+                            </a>
+                            <a href="/activities/edit/@activity.Id" class="btn btn-warning">
+                                <span class="oi oi-pencil"></span>
+                            </a>
+                            <button class="btn btn-danger" @onclick="@(()=>Delete(activity.Id))">
+                                <span class="oi oi-delete"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
-
-<style>
-    td{
-        vertical-align: middle;
-    }
-</style>
 
 @code {
     private List<Activity>? Activities;
@@ -83,7 +65,7 @@ else
     private string ConvertByteArrayToBase64(byte[] image)
     {
         var base64 = Convert.ToBase64String(image);
-        return String.Format("data:image/gif;base64,{0}", base64);
+        return $"data:image/gif;base64,{base64}";
     }
 
     async Task Delete(int activityId)

@@ -3,7 +3,7 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class="card-title">Itineraries</h3>
+<h3 class="card-title text-white">Itineraries</h3>
 <br />
 <a href="itineraries/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
@@ -18,40 +18,34 @@
 }
 else
 {
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>Package Details</th>
-                <th>Date Created</th>
-                <th>Date Updated</th>
-                <th>Number of Days</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var itinerary in Itineraries)
-            {
-                <tr>
-                    <td>@itinerary.PackaageDetails</td>
-                    <td>@(itinerary.DateCreated.HasValue ? itinerary.DateCreated.Value.ToString("dd MMM, yyyy") : "-")</td>
-                    <td>@(itinerary.DateUpdated.HasValue ? itinerary.DateUpdated.Value.ToString("dd MMM, yyyy") : "-")</td>
-                    <td>@itinerary.no_of_days</td>
-                    <td>
-                        <a href="/itineraries/view/@itinerary.Id" class="btn btn-primary">
-                            <span class="oi oi-book"></span>
-                        </a>
-                        <a href="/itineraries/edit/@itinerary.Id" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(itinerary.Id))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="row">
+        @foreach (var itinerary in Itineraries)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@itinerary.PackaageDetails</h5>
+                        <div class="card-text">
+                            <p><strong>Date Created:</strong> @(itinerary.DateCreated.HasValue ? itinerary.DateCreated.Value.ToString("dd MMM, yyyy") : "-")</p>
+                            <p><strong>Date Updated:</strong> @(itinerary.DateUpdated.HasValue ? itinerary.DateUpdated.Value.ToString("dd MMM, yyyy") : "-")</p>
+                            <p><strong>Number of Days:</strong> @itinerary.no_of_days</p>
+                        </div>
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <a href="/itineraries/view/@itinerary.Id" class="btn btn-primary">
+                                <span class="oi oi-book"></span>
+                            </a>
+                            <a href="/itineraries/edit/@itinerary.Id" class="btn btn-warning">
+                                <span class="oi oi-pencil"></span>
+                            </a>
+                            <button class="btn btn-danger" @onclick="@(()=>Delete(itinerary.Id))">
+                                <span class="oi oi-delete"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
 
 @code {

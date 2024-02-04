@@ -2,8 +2,9 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@implements IDisposable
 
-<h3 class="card-title">Itinerary Activities</h3>
+<h3 class="card-title text-white">Itinerary Activities</h3>
 <br />
 <a href="/itineraryactivities/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
@@ -14,11 +15,12 @@
 
 @if (ItineraryActivities == null)
 {
-    <div class="alert alert-info">Loading Itinerary  Activities...</div>
+    <div class="alert alert-info">Loading Itinerary Activities...</div>
 }
 else
 {
-    <table class="table table-responsive">
+    <!-- Itinerary Activities Table Section -->
+    <table class="table table-responsive" id="itineraryactivitiesTable">
         <thead>
             <tr>
                 <th>Id</th>
@@ -27,14 +29,15 @@ else
                 <th>Actions</th>
             </tr>
         </thead>
-
         <tbody>
             @foreach (var itineraryActivity in ItineraryActivities)
             {
+                <!-- Individual Table Row -->
                 <tr>
                     <td>@itineraryActivity.Id</td>
                     <td>@itineraryActivity.DateScheduled.ToString("dd MMM, yyyy")</td>
                     <td>@itineraryActivity.DateCreated.ToString("dd MMM, yyyy")</td>
+                    <!-- Action Buttons -->
                     <td>
                         <a href="/itineraryActivities/view/@itineraryActivity.Id" class="btn btn-primary">
                             <span class="oi oi-book"></span>
@@ -69,5 +72,13 @@ else
             await _client.DeleteAsync($"{Endpoints.ItineraryActivityEndpoint}/{itineraryActivityId}");
             await OnInitializedAsync();
         }
+    }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#itineraryactivitiesTable");
+    }
+    public void Dispose()
+    {
+        js.InvokeVoidAsync("DataTablesDispose", "#itineraryactivitiesTable");
     }
 }

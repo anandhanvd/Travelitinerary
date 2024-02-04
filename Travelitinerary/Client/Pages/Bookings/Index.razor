@@ -1,11 +1,11 @@
-﻿
-@page "/bookings/"
+﻿@page "/bookings/"
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@implements IDisposable
 
 
-<h3 class=" = card-title">Itinerary Bookings</h3>
+<h3 class="card-title text-white">Itinerary Bookings</h3>
 <br />
 
 <a href="/bookings/create" class="btn btn-secondary">
@@ -84,6 +84,15 @@ else
                 await OnInitializedAsync();
             }
         }
-    
-}
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    }
+    public void Dispose()
+    {
+        js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
+    }
+
 }

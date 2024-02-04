@@ -12,8 +12,8 @@ using Travelitinerary.Server.Data;
 namespace Travelitinerary.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240128141825_newdb")]
-    partial class newdb
+    [Migration("20240204064204_updateDB")]
+    partial class updateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -434,8 +434,8 @@ namespace Travelitinerary.Server.Migrations
                             Duration = 4f,
                             Name = "Kevin",
                             Price = 56f,
-                            TimeEnd = new DateTime(2024, 1, 29, 4, 18, 25, 172, DateTimeKind.Local).AddTicks(3972),
-                            TimeStart = new DateTime(2024, 1, 28, 22, 18, 25, 172, DateTimeKind.Local).AddTicks(3963),
+                            TimeEnd = new DateTime(2024, 2, 4, 20, 42, 4, 540, DateTimeKind.Local).AddTicks(7993),
+                            TimeStart = new DateTime(2024, 2, 4, 14, 42, 4, 540, DateTimeKind.Local).AddTicks(7979),
                             Type = "Cleaning",
                             UpdatedBy = "Arthur"
                         });
@@ -624,7 +624,7 @@ namespace Travelitinerary.Server.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CheckIn")
+                    b.Property<DateTime>("CheckIn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CheckOut")

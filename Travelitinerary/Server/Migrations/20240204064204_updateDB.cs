@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Travelitinerary.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class newdb : Migration
+    public partial class updateDB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -156,7 +156,7 @@ namespace Travelitinerary.Server.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CheckIn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RoomType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<float>(type: "real", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -445,7 +445,7 @@ namespace Travelitinerary.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Activities",
                 columns: new[] { "Id", "ActivityImage", "CreatedBy", "DateCreated", "DateUpdated", "Description", "Duration", "Name", "Price", "TimeEnd", "TimeStart", "Type", "UpdatedBy" },
-                values: new object[] { 1, null, "Kevin Tong", new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified), "Room Cleaning", 4f, "Kevin", 56f, new DateTime(2024, 1, 29, 4, 18, 25, 172, DateTimeKind.Local).AddTicks(3972), new DateTime(2024, 1, 28, 22, 18, 25, 172, DateTimeKind.Local).AddTicks(3963), "Cleaning", "Arthur" });
+                values: new object[] { 1, null, "Kevin Tong", new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified), "Room Cleaning", 4f, "Kevin", 56f, new DateTime(2024, 2, 4, 20, 42, 4, 540, DateTimeKind.Local).AddTicks(7993), new DateTime(2024, 2, 4, 14, 42, 4, 540, DateTimeKind.Local).AddTicks(7979), "Cleaning", "Arthur" });
 
             migrationBuilder.InsertData(
                 table: "Flights",

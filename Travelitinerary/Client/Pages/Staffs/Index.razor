@@ -3,7 +3,7 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class ="card-title">Staffs</h3>
+<h3 class="card-title text-white">Staffs</h3>
 <br />
 <a href="/staffs/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
@@ -18,34 +18,33 @@
 }
 else
 {
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            @foreach (var staff in Staffs)
-            {
-                <tr>
-                    <td>@staff.FirstName</td>
-                    <td>
-                        <a href="/staffs/view/@staff.Id" class="btn btn-primary">
-                            <span class="oi oi-book"></span>
-                        </a>
-                        <a href="/staffs/edit/@staff.Id" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=>Delete(staff.Id))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="row">
+        @foreach (var staff in Staffs)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@staff.FirstName</h5>
+                        <div>
+                                <div><strong>Date of Birth:</strong> @staff.DateOfBirth.ToString("dd MMM, yyyy")</div>
+                            <div><strong>Phone:</strong> @staff.Phone</div>
+                        </div>
+                        <div class="btn-group" role="group" aria-label="Actions">
+                            <a href="/staffs/view/@staff.Id" class="btn btn-primary">
+                                <span class="oi oi-book"></span>
+                            </a>
+                            <a href="/staffs/edit/@staff.Id" class="btn btn-warning">
+                                <span class="oi oi-pencil"></span>
+                            </a>
+                            <button class="btn btn-danger" @onclick="@(()=>Delete(staff.Id))">
+                                <span class="oi oi-delete"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
 
 @code {
@@ -66,4 +65,5 @@ else
             await OnInitializedAsync();
         }
     }
+
 }

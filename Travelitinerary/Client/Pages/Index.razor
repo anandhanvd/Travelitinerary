@@ -1,4 +1,6 @@
 ﻿@page "/"
+@inject HttpClient _client
+@attribute [Authorize]
 
 <!DOCTYPE html>
 <html lang="en">
@@ -7,23 +9,175 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            background-image: url("pexels-francesco-ungaro-1525039.jpg"); /* Replace 'your-image.jpg' with your image file */
-            background-size: cover;
-            background-position: center;
             text-align: center;
             color: #fff; /* Set text color to be visible on the background */
         }
 
         h1 {
-            padding: 50px; /* Add padding for better visibility */
-            background-color: rgba(0, 0, 0, 0.7); /* Add a semi-transparent background to the h1 */
-            display: inline-block; /* Center the h1 */
+            padding: 22px 37px;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: inline-block;
+            width: 594px;
+            font-size: 29px;
+        }
+
+        .image-slideshow {
+            height: 250px;
+            margin: 22px auto;
+            max-width: 1000px;
+            background: rgba(0,0,0,.4);
+            border-radius: 8px;
+        }
+
+        .image-slideshow img{
+            object-fit: contain;
+            height: 250px;
+
+        }
+        .sections{
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .section{
+            flex-basis: 30%;
+        }
+        
+        .section p{
+            border-bottom: none !important;
+        }
+
+        .section-items:last-child p {
+            border: none !important;
+        }
+
+        .section > div{
+            background: white;
+            color: black;
+            height: 380px;
+            overflow-y: scroll;
+            border-radius: 8px;
+            -ms-overflow-style: none; /* Internet Explorer 10+ */
+            scrollbar-width: none; /* Firefox */
+        }
+            .section > div::-webkit-scrollbar {
+                display: none; /* Safari and Chrome */
+            }
+
+        .section-items{
+            position: relative;
+            padding-bottom: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .section-items:first-child{
+            padding-top: 10px;
+        }
+
+        .section-items img {
+            width: 100%;
+            position: relative;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            border-radius: 5px;
+        }
+
+        .section-card{
+            margin: 18px 16px;
+        }
+        
+        .sections .card{
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
         }
     </style>
     <title>Index</title>
 </head>
-<body>
-    <h1>ACE TRAVELS-Tours and Packages</h1>
-    <!-- Add the rest of your page content here -->
+<body style="background: none;">
+    <div style="display: inline-block;width: 100vh;">
+        <h1>ACE TRAVELS-Tours and Packages</h1>
+        <!-- Add the rest of your page content here -->
+
+        <marquee class="image-slideshow" bgcolor="white" >
+            @foreach (var activity in Activities)
+            {
+                if(activity.ActivityImage is not null)
+                {
+                    <img style="padding: 5px;border-radius: 10px;" src="@ConvertByteArrayToBase64(activity.ActivityImage)" />
+                }
+            }
+        </marquee>
+
+        <div class="sections">
+            <div class="section flight">
+                <h4 style="text-align: left;">Flights</h4>
+                <div>
+                    @foreach(var flight in Flights){
+                        <div class="card section-card">
+                            <p class="px-5 py-5 m-0" style="text-align: center;">@(flight.AirlineName??"")</p>
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <div class="section hotel">
+                <h4 style="text-align: left;">Hotels</h4>
+                <div>
+                    @foreach (var hotel in Hotels)
+                    {
+                        <div class="card section-card">
+                            <p class="px-3 py-3 m-0" style="text-align: center;">@(hotel.Name ?? "")</p>
+                        </div>
+                    }
+                </div>
+
+            </div>
+            <div class="section activity">
+                <h4 style="text-align: left;">Activities</h4>
+                <div>
+                    @foreach(var activity in Activities)
+                    {
+                        <div class="card m-3">
+                        @* <div class="section-items"> *@
+                            @if(activity.ActivityImage is not null)
+                            {
+                                <img class="card-img-top" src="@ConvertByteArrayToBase64(activity.ActivityImage)" style="width: 100%;" />
+                            }
+                            <div class="card-body" style="padding: 5px;">
+                                <h5 class="px-3 py-2 card-text" style="font-size: 18px;">@(activity.Name??"")</h5>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 </body>
 </html>
+
+@code{
+    private List<Flight>? Flights = new();
+    private List<Activity>? Activities = new();
+    private List<Hotel>? Hotels = new();
+
+    protected async override Task OnInitializedAsync()
+    {
+        Flights = await _client.GetFromJsonAsync<List<Flight>>($"{Endpoints.FlightEndpoint}");
+        Activities = await _client.GetFromJsonAsync<List<Activity>>($"{Endpoints.ActivityEndpoint}");
+        Hotels = await _client.GetFromJsonAsync<List<Hotel>>($"{Endpoints.HotelEndpoint}");
+
+    }
+
+    private string ConvertByteArrayToBase64(byte[] image)
+    {
+        var base64 = Convert.ToBase64String(image);
+        return $"data:image/gif;base64,{base64}";
+    }
+}
