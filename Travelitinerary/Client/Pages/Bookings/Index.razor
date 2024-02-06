@@ -3,65 +3,66 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 @implements IDisposable
+@layout Second
 
+<div class="card">
+    <h3 class="card-title text-center text-black">Itinerary Bookings</h3>
+    <br />
 
-<h3 class="card-title text-white">Itinerary Bookings</h3>
-<br />
+    <a href="/bookings/create" class="btn btn-primary">
+        <!-- Change btn-secondary to btn-primary -->
+        <span class="oi oi-plus"></span>
+        Create New Booking
+    </a>
+    <br />
+    <br />
 
-<a href="/bookings/create" class="btn btn-secondary">
-    <span class="oi oi-plus"></span>
-    Create New Booking
-</a>
-<br />
-<br />
-
-@if (Bookings == null)
-{
-    <div class="alert alert-info">Loading Bookings...</div>
-}
-else
-{
-    <table class="table table-responsive" id="bookingsTable">
-        <thead>
-            <tr>
-                
-                <th>Customer</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Book Type</th>
-                <th>Itinerary</th>
-                <th>Actions</th>
-               
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var booking in Bookings)
-            {
-                <tr>
-                    
-                    <td>@(booking.Customer is not null ? booking.Customer.FirstName:"")</td>
-                    <td>@booking.StartDate.Date.ToString("dd MMMM yyyy")</td>
-                    <td>@booking.EndDate.Date.ToString("dd MMMM yyyy")</td>
-                    <td>@booking.BookType</td>
-                    <td>@(booking.Itinerary is not null ? booking.Itinerary.PackaageDetails : "")</td>
-                    <td>
-                        <a href="/otherproject/bookings/view/@booking.Id" class="btn btn-primary">
-                            <span class="oi oi-book"></span>
-                        </a>
-                        <a href="/otherproject/bookings/edit/@booking.Id" class="btn btn-warning">
-                            <span class="oi oi-pencil"></span>
-                        </a>
-                        <button class="btn btn-danger" @onclick="@(()=> Delete(booking.Id))">
-                            <span class="oi oi-delete"></span>
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
-
+    @if (Bookings == null)
+    {
+        <div class="alert alert-info">Loading Bookings...</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table" id="bookingsTable">
+                <!-- Remove the table-responsive class from the table and wrap it in a div -->
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Book Type</th>
+                        <th>Itinerary</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var booking in Bookings)
+                    {
+                        <tr>
+                            <td>@(booking.Customer is not null ? booking.Customer.FirstName : "")</td>
+                            <td>@booking.StartDate.Date.ToString("dd MMMM yyyy")</td>
+                            <td>@booking.EndDate.Date.ToString("dd MMMM yyyy")</td>
+                            <td>@booking.BookType</td>
+                            <td>@(booking.Itinerary is not null ? booking.Itinerary.PackaageDetails : "")</td>
+                            <td>
+                                <a href="/otherproject/bookings/view/@booking.Id" class="btn btn-primary">
+                                    <span class="oi oi-book"></span>
+                                </a>
+                                <a href="/otherproject/bookings/edit/@booking.Id" class="btn btn-warning">
+                                    <span class="oi oi-pencil"></span>
+                                </a>
+                                <button class="btn btn-danger" @onclick="@(()=> Delete(booking.Id))">
+                                    <span class="oi oi-delete"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
 
 @code {
     private List<Booking>? Bookings;
@@ -71,7 +72,7 @@ else
     {
         Bookings = await _client.GetFromJsonAsync<List<Booking>>($"{Endpoints.BookingsEndpoint}");
     }
-    //
+
     async Task Delete(int bookingId)
     {
         if (Bookings != null)
@@ -90,9 +91,9 @@ else
     {
         await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
     }
+
     public void Dispose()
     {
         js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
     }
-
 }
