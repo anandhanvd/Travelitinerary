@@ -12,8 +12,8 @@ using Travelitinerary.Server.Data;
 namespace Travelitinerary.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240131050959_Newdb")]
-    partial class Newdb
+    [Migration("20240206060357_huhu")]
+    partial class huhu
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -395,7 +395,9 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<float>("Duration")
                         .HasColumnType("real");
@@ -408,12 +410,15 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("real");
 
                     b.Property<DateTime?>("TimeEnd")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("TimeStart")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Type")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -434,8 +439,8 @@ namespace Travelitinerary.Server.Migrations
                             Duration = 4f,
                             Name = "Kevin",
                             Price = 56f,
-                            TimeEnd = new DateTime(2024, 1, 31, 19, 9, 59, 375, DateTimeKind.Local).AddTicks(8963),
-                            TimeStart = new DateTime(2024, 1, 31, 13, 9, 59, 375, DateTimeKind.Local).AddTicks(8954),
+                            TimeEnd = new DateTime(2024, 2, 6, 20, 3, 57, 95, DateTimeKind.Local).AddTicks(8189),
+                            TimeStart = new DateTime(2024, 2, 6, 14, 3, 57, 95, DateTimeKind.Local).AddTicks(8176),
                             Type = "Cleaning",
                             UpdatedBy = "Arthur"
                         });
@@ -624,7 +629,7 @@ namespace Travelitinerary.Server.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("CheckIn")
+                    b.Property<DateTime>("CheckIn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CheckOut")
@@ -686,9 +691,11 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DateCreated")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateUpdated")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("FlightId")
@@ -698,7 +705,9 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PackaageDetails")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
@@ -782,24 +791,32 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -823,18 +840,6 @@ namespace Travelitinerary.Server.Migrations
                             HireDate = new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Tong",
                             Phone = "886643347",
-                            Position = "assistant"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "Temasek Poly",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Anand",
-                            Gender = "Male",
-                            HireDate = new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Position = "assistant"
                         });
                 });

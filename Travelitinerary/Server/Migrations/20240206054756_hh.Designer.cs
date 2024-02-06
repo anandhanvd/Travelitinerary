@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travelitinerary.Server.Data;
 
@@ -11,9 +12,11 @@ using Travelitinerary.Server.Data;
 namespace Travelitinerary.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240206054756_hh")]
+    partial class hh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -392,9 +395,7 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("Duration")
                         .HasColumnType("real");
@@ -407,15 +408,12 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("real");
 
                     b.Property<DateTime?>("TimeEnd")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("TimeStart")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -436,8 +434,8 @@ namespace Travelitinerary.Server.Migrations
                             Duration = 4f,
                             Name = "Kevin",
                             Price = 56f,
-                            TimeEnd = new DateTime(2024, 2, 6, 20, 9, 12, 635, DateTimeKind.Local).AddTicks(5053),
-                            TimeStart = new DateTime(2024, 2, 6, 14, 9, 12, 635, DateTimeKind.Local).AddTicks(5052),
+                            TimeEnd = new DateTime(2024, 2, 6, 19, 47, 56, 391, DateTimeKind.Local).AddTicks(8766),
+                            TimeStart = new DateTime(2024, 2, 6, 13, 47, 56, 391, DateTimeKind.Local).AddTicks(8749),
                             Type = "Cleaning",
                             UpdatedBy = "Arthur"
                         });
@@ -688,11 +686,9 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DateCreated")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateUpdated")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("FlightId")
@@ -702,9 +698,7 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PackaageDetails")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("StaffId")
                         .HasColumnType("int");
@@ -788,32 +782,24 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")

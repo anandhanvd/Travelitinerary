@@ -12,8 +12,8 @@ using Travelitinerary.Server.Data;
 namespace Travelitinerary.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240204064204_updateDB")]
-    partial class updateDB
+    [Migration("20240206055952_hihi")]
+    partial class hihi
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -395,7 +395,9 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<float>("Duration")
                         .HasColumnType("real");
@@ -408,12 +410,15 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("real");
 
                     b.Property<DateTime?>("TimeEnd")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("TimeStart")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Type")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -434,8 +439,8 @@ namespace Travelitinerary.Server.Migrations
                             Duration = 4f,
                             Name = "Kevin",
                             Price = 56f,
-                            TimeEnd = new DateTime(2024, 2, 4, 20, 42, 4, 540, DateTimeKind.Local).AddTicks(7993),
-                            TimeStart = new DateTime(2024, 2, 4, 14, 42, 4, 540, DateTimeKind.Local).AddTicks(7979),
+                            TimeEnd = new DateTime(2024, 2, 6, 19, 59, 52, 612, DateTimeKind.Local).AddTicks(1929),
+                            TimeStart = new DateTime(2024, 2, 6, 13, 59, 52, 612, DateTimeKind.Local).AddTicks(1916),
                             Type = "Cleaning",
                             UpdatedBy = "Arthur"
                         });
@@ -782,24 +787,32 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("HireDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -823,18 +836,6 @@ namespace Travelitinerary.Server.Migrations
                             HireDate = new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Tong",
                             Phone = "886643347",
-                            Position = "assistant"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "Temasek Poly",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateOfBirth = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstName = "Anand",
-                            Gender = "Male",
-                            HireDate = new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Position = "assistant"
                         });
                 });

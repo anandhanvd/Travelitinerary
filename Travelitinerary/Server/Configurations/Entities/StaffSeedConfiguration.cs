@@ -23,16 +23,6 @@ namespace Travelitinerary.Server.Configurations.Entities
                     Position = "assistant",
                     Gender = "Male"
 
-                },
-
-                new Staff
-                {
-                    Id = 2,
-                    FirstName = "Anand",
-                    Address = "Temasek Poly",
-                    HireDate = new DateTime(2023, 12, 1),
-                    Position = "assistant",
-                    Gender = "Male"
                 }
         );
         }

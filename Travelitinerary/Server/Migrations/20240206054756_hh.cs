@@ -3,12 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace Travelitinerary.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class Newdb : Migration
+    public partial class hh : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -156,7 +154,7 @@ namespace Travelitinerary.Server.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CheckIn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RoomType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<float>(type: "real", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -445,7 +443,7 @@ namespace Travelitinerary.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Activities",
                 columns: new[] { "Id", "ActivityImage", "CreatedBy", "DateCreated", "DateUpdated", "Description", "Duration", "Name", "Price", "TimeEnd", "TimeStart", "Type", "UpdatedBy" },
-                values: new object[] { 1, null, "Kevin Tong", new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified), "Room Cleaning", 4f, "Kevin", 56f, new DateTime(2024, 1, 31, 19, 9, 59, 375, DateTimeKind.Local).AddTicks(8963), new DateTime(2024, 1, 31, 13, 9, 59, 375, DateTimeKind.Local).AddTicks(8954), "Cleaning", "Arthur" });
+                values: new object[] { 1, null, "Kevin Tong", new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified), "Room Cleaning", 4f, "Kevin", 56f, new DateTime(2024, 2, 6, 19, 47, 56, 391, DateTimeKind.Local).AddTicks(8766), new DateTime(2024, 2, 6, 13, 47, 56, 391, DateTimeKind.Local).AddTicks(8749), "Cleaning", "Arthur" });
 
             migrationBuilder.InsertData(
                 table: "Flights",
@@ -460,11 +458,7 @@ namespace Travelitinerary.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Staffs",
                 columns: new[] { "Id", "Address", "CreatedBy", "DateCreated", "DateOfBirth", "DateUpdated", "Email", "FirstName", "Gender", "HireDate", "LastName", "Phone", "Position", "UpdatedBy" },
-                values: new object[,]
-                {
-                    { 1, "Temasek Poly", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2004, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tonggiakhanh.kevin@gmail.com", "Kevin", "Male", new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tong", "886643347", "assistant", null },
-                    { 2, "Temasek Poly", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "Anand", "Male", new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "assistant", null }
-                });
+                values: new object[] { 1, "Temasek Poly", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2004, 1, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tonggiakhanh.kevin@gmail.com", "Kevin", "Male", new DateTime(2023, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Tong", "886643347", "assistant", null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

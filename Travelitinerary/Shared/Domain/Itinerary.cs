@@ -9,10 +9,16 @@ namespace Travelitinerary.Shared.Domain
         [Required]
         public int HotelId { get; set; }
         public int? FlightId { get; set; }
+        [Required]
+        [DataType(DataType.DateTime)]
         public DateTime? DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime? DateUpdated { get; set; } 
         [Required]
         public int no_of_days {  get; set; }
+        [Required]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "Please enter the package details.")]
         public string? PackaageDetails {  get; set; }
         public virtual Flight? Flight { get; set; }
         public virtual Hotel? Hotel { get; set; }

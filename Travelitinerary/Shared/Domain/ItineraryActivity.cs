@@ -8,7 +8,8 @@ namespace Travelitinerary.Shared.Domain
         [Required]
         public int ActivityId { get; set; }
         [Required]
-        public DateTime DateScheduled { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime DateScheduled { get; set; } = DateTime.Now;
         public virtual Itinerary? Itinerary { get; set; }
         public virtual Activity? Activity { get; set; }
     }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travelitinerary.Server.Data;
 
@@ -11,9 +12,11 @@ using Travelitinerary.Server.Data;
 namespace Travelitinerary.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240206060506_dateTimeNow")]
+    partial class dateTimeNow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -436,8 +439,8 @@ namespace Travelitinerary.Server.Migrations
                             Duration = 4f,
                             Name = "Kevin",
                             Price = 56f,
-                            TimeEnd = new DateTime(2024, 2, 6, 20, 9, 12, 635, DateTimeKind.Local).AddTicks(5053),
-                            TimeStart = new DateTime(2024, 2, 6, 14, 9, 12, 635, DateTimeKind.Local).AddTicks(5052),
+                            TimeEnd = new DateTime(2024, 2, 6, 20, 5, 5, 867, DateTimeKind.Local).AddTicks(4472),
+                            TimeStart = new DateTime(2024, 2, 6, 14, 5, 5, 867, DateTimeKind.Local).AddTicks(4460),
                             Type = "Cleaning",
                             UpdatedBy = "Arthur"
                         });
