@@ -1,4 +1,5 @@
-<!-- Your Blazor component code with date picker and dropdowns -->
+@using Travelitinerary.Client.Components
+@layout Second
 <EditForm Model="@customer" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
@@ -9,6 +10,11 @@
             <div>
                 <InputText @bind-Value="@customer.ContactNumber" class="form-control" />
                 <ValidationMessage For="@(() => customer.ContactNumber)" />
+
+                @if (!string.IsNullOrEmpty(customer.ContactNumber) && !IsContactNumberValid(customer.ContactNumber))
+                {
+                    <div class="text-danger">Contact number must be exactly 8 digits.</div>
+                }
             </div>
         </div>
 
@@ -17,6 +23,11 @@
             <div>
                 <InputText @bind-Value="@customer.EmailAddress" class="form-control" />
                 <ValidationMessage For="@(() => customer.EmailAddress)" />
+
+                @if (!string.IsNullOrEmpty(customer.EmailAddress) && !IsEmailAddressValid(customer.EmailAddress))
+                {
+                    <div class="text-danger">Invalid email address format.</div>
+                }
             </div>
         </div>
 
@@ -25,6 +36,11 @@
             <div>
                 <InputText @bind-Value="@customer.FirstName" class="form-control" />
                 <ValidationMessage For="@(() => customer.FirstName)" />
+
+                @if (!string.IsNullOrEmpty(customer.FirstName) && !IsNameValid(customer.FirstName))
+                {
+                    <div class="text-danger">First name must not exceed 50 characters.</div>
+                }
             </div>
         </div>
 
@@ -33,6 +49,11 @@
             <div>
                 <InputText @bind-Value="@customer.LastName" class="form-control" />
                 <ValidationMessage For="@(() => customer.LastName)" />
+
+                @if (!string.IsNullOrEmpty(customer.LastName) && !IsNameValid(customer.LastName))
+                {
+                    <div class="text-danger">Last name must not exceed 50 characters.</div>
+                }
             </div>
         </div>
 
@@ -96,4 +117,22 @@
     [Parameter] public Customer? customer { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private bool IsContactNumberValid(string contactNumber)
+    {
+        // Custom contact number validation logic
+        return contactNumber.Length == 8 && contactNumber.All(char.IsDigit);
+    }
+
+    private bool IsEmailAddressValid(string emailAddress)
+    {
+        // Custom email validation logic
+        return emailAddress.Contains("@");
+    }
+
+    private bool IsNameValid(string name)
+    {
+        // Custom name validation logic
+        return name.Length <= 50;
+    }
 }

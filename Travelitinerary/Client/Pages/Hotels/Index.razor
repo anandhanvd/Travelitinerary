@@ -2,9 +2,9 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@layout Second
 
-
-<h3 class="card-title text-white">Itinerary Hotels</h3>
+<h3 class="card-title text-black">Itinerary Hotels</h3>
 <br />
 
 <a href="/hotels/create" class="btn btn-secondary">
@@ -23,7 +23,7 @@
     {
         @foreach (var hotel in Hotels)
         {
-            <div class="card" style="min-width:250px;">
+            <div class="card" style="min-width: 250px; background-color:lightgrey; color:black;">
                 <div class="card-body">
                     <h5 class="card-title">@hotel.Name</h5>
                     <p class="card-text">

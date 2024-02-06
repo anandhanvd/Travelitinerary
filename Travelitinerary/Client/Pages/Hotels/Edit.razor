@@ -1,7 +1,7 @@
 ﻿@page "/hotels/Edit/{id:int}"
 @inject HttpClient _client
 @inject NavigationManager _navManager
-
+@layout Second
 <h3>Edit Hotel</h3>
 
 <FormComponent ButtonText="Update" OnValidSubmit="EditHotels" hotel="hotel" />
