@@ -9,11 +9,9 @@ namespace Travelitinerary.Shared.Domain
         [Required]
         public int HotelId { get; set; }
         public int? FlightId { get; set; }
-        [Required]
-        [DataType(DataType.DateTime)]
+        
         public DateTime? DateCreated { get; set; }
-        [Required]
-        [DataType(DataType.DateTime)]
+        
         public DateTime? DateUpdated { get; set; } 
         [Required]
         public int no_of_days {  get; set; }

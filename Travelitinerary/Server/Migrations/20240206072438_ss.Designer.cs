@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Travelitinerary.Server.Data;
 
@@ -11,9 +12,11 @@ using Travelitinerary.Server.Data;
 namespace Travelitinerary.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240206072438_ss")]
+    partial class ss
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -436,8 +439,8 @@ namespace Travelitinerary.Server.Migrations
                             Duration = 4f,
                             Name = "Kevin",
                             Price = 56f,
-                            TimeEnd = new DateTime(2024, 2, 6, 21, 26, 57, 126, DateTimeKind.Local).AddTicks(3043),
-                            TimeStart = new DateTime(2024, 2, 6, 15, 26, 57, 126, DateTimeKind.Local).AddTicks(3042),
+                            TimeEnd = new DateTime(2024, 2, 6, 21, 24, 38, 801, DateTimeKind.Local).AddTicks(9947),
+                            TimeStart = new DateTime(2024, 2, 6, 15, 24, 38, 801, DateTimeKind.Local).AddTicks(9945),
                             Type = "Cleaning",
                             UpdatedBy = "Arthur"
                         });
@@ -700,9 +703,11 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DateCreated")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateUpdated")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("FlightId")
