@@ -3,6 +3,17 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 @layout Second
+<style>
+    /* CSS for the hover effect */
+    .flight-card {
+        transition: transform 0.2s;
+    }
+
+        .flight-card:hover {
+            transform: translateY(-5px); /* Adjust the amount of pop-up as desired */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+</style>
 <div class="card">
     <h3 class="card-title text-center text-black">Itinerary Flights</h3>
     <br />
@@ -45,7 +56,7 @@
             @foreach (var flight in Flights)
             {
                 <div class="col-md-4 mb-4" style="min-width: 300px;">
-                    <div class="card h-100">
+                    <div class="card h-100 flight-card">
                         <div class="card-body">
                             <h5 class="card-title">@flight.AirlineName</h5>
                             <p class="card-text"><strong>Departure:</strong> @flight.Departure</p>

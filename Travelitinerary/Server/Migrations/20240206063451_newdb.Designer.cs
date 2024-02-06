@@ -12,8 +12,8 @@ using Travelitinerary.Server.Data;
 namespace Travelitinerary.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240206055952_hihi")]
-    partial class hihi
+    [Migration("20240206063451_newdb")]
+    partial class newdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -439,8 +439,8 @@ namespace Travelitinerary.Server.Migrations
                             Duration = 4f,
                             Name = "Kevin",
                             Price = 56f,
-                            TimeEnd = new DateTime(2024, 2, 6, 19, 59, 52, 612, DateTimeKind.Local).AddTicks(1929),
-                            TimeStart = new DateTime(2024, 2, 6, 13, 59, 52, 612, DateTimeKind.Local).AddTicks(1916),
+                            TimeEnd = new DateTime(2024, 2, 6, 20, 34, 51, 529, DateTimeKind.Local).AddTicks(8598),
+                            TimeStart = new DateTime(2024, 2, 6, 14, 34, 51, 529, DateTimeKind.Local).AddTicks(8597),
                             Type = "Cleaning",
                             UpdatedBy = "Arthur"
                         });
@@ -458,12 +458,15 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("BookDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BookTitle")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BookType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
@@ -508,9 +511,11 @@ namespace Travelitinerary.Server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
@@ -526,18 +531,23 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EmailAddress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nationality")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -691,9 +701,11 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DateCreated")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateUpdated")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("FlightId")
@@ -703,7 +715,9 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("PackaageDetails")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("StaffId")
                         .HasColumnType("int");

@@ -12,8 +12,8 @@ using Travelitinerary.Server.Data;
 namespace Travelitinerary.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240206060357_huhu")]
-    partial class huhu
+    [Migration("20240206064128_new")]
+    partial class @new
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -439,8 +439,8 @@ namespace Travelitinerary.Server.Migrations
                             Duration = 4f,
                             Name = "Kevin",
                             Price = 56f,
-                            TimeEnd = new DateTime(2024, 2, 6, 20, 3, 57, 95, DateTimeKind.Local).AddTicks(8189),
-                            TimeStart = new DateTime(2024, 2, 6, 14, 3, 57, 95, DateTimeKind.Local).AddTicks(8176),
+                            TimeEnd = new DateTime(2024, 2, 6, 20, 41, 28, 216, DateTimeKind.Local).AddTicks(841),
+                            TimeStart = new DateTime(2024, 2, 6, 14, 41, 28, 216, DateTimeKind.Local).AddTicks(840),
                             Type = "Cleaning",
                             UpdatedBy = "Arthur"
                         });
@@ -458,12 +458,15 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("BookDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BookTitle")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BookType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
@@ -508,9 +511,11 @@ namespace Travelitinerary.Server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
@@ -526,18 +531,25 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EmailAddress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Nationality")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")

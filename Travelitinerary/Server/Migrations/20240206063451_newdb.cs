@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Travelitinerary.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class hh : Migration
+    public partial class newdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,12 +18,12 @@ namespace Travelitinerary.Server.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TimeStart = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    TimeEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TimeStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TimeEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<float>(type: "real", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ActivityImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -82,13 +82,13 @@ namespace Travelitinerary.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nationality = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -211,15 +211,15 @@ namespace Travelitinerary.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HireDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Position = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Position = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -345,10 +345,10 @@ namespace Travelitinerary.Server.Migrations
                     StaffId = table.Column<int>(type: "int", nullable: false),
                     HotelId = table.Column<int>(type: "int", nullable: false),
                     FlightId = table.Column<int>(type: "int", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     no_of_days = table.Column<int>(type: "int", nullable: false),
-                    PackaageDetails = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PackaageDetails = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -382,9 +382,9 @@ namespace Travelitinerary.Server.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BookType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BookTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BookDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BookType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BookTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BookDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ItineraryID = table.Column<int>(type: "int", nullable: false),
                     CustomerID = table.Column<int>(type: "int", nullable: false),
                     AvailableSlots = table.Column<int>(type: "int", nullable: false),
@@ -443,7 +443,7 @@ namespace Travelitinerary.Server.Migrations
             migrationBuilder.InsertData(
                 table: "Activities",
                 columns: new[] { "Id", "ActivityImage", "CreatedBy", "DateCreated", "DateUpdated", "Description", "Duration", "Name", "Price", "TimeEnd", "TimeStart", "Type", "UpdatedBy" },
-                values: new object[] { 1, null, "Kevin Tong", new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified), "Room Cleaning", 4f, "Kevin", 56f, new DateTime(2024, 2, 6, 19, 47, 56, 391, DateTimeKind.Local).AddTicks(8766), new DateTime(2024, 2, 6, 13, 47, 56, 391, DateTimeKind.Local).AddTicks(8749), "Cleaning", "Arthur" });
+                values: new object[] { 1, null, "Kevin Tong", new DateTime(2024, 1, 20, 11, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 25, 11, 0, 0, 0, DateTimeKind.Unspecified), "Room Cleaning", 4f, "Kevin", 56f, new DateTime(2024, 2, 6, 20, 34, 51, 529, DateTimeKind.Local).AddTicks(8598), new DateTime(2024, 2, 6, 14, 34, 51, 529, DateTimeKind.Local).AddTicks(8597), "Cleaning", "Arthur" });
 
             migrationBuilder.InsertData(
                 table: "Flights",

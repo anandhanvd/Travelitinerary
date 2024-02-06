@@ -1,138 +1,104 @@
 @using Travelitinerary.Client.Components
+User
 @layout Second
-<EditForm Model="@customer" OnValidSubmit="@OnValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
 
-    <fieldset disabled="@Disabled">
-        <div class="form-group">
-            <label>Contact Number: </label>
-            <div>
-                <InputText @bind-Value="@customer.ContactNumber" class="form-control" />
-                <ValidationMessage For="@(() => customer.ContactNumber)" />
+<div class="card bg-light p-3">
+    <EditForm Model="@customer" OnValidSubmit="@OnValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-                @if (!string.IsNullOrEmpty(customer.ContactNumber) && !IsContactNumberValid(customer.ContactNumber))
-                {
-                    <div class="text-danger">Contact number must be exactly 8 digits.</div>
-                }
+        <fieldset disabled="@Disabled">
+            <div class="form-group">
+                <label>Contact Number: </label>
+                <div>
+                    <InputText @bind-Value="@customer.ContactNumber" class="form-control" />
+                    <ValidationMessage For="@(() => customer.ContactNumber)" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Email Address: </label>
-            <div>
-                <InputText @bind-Value="@customer.EmailAddress" class="form-control" />
-                <ValidationMessage For="@(() => customer.EmailAddress)" />
-
-                @if (!string.IsNullOrEmpty(customer.EmailAddress) && !IsEmailAddressValid(customer.EmailAddress))
-                {
-                    <div class="text-danger">Invalid email address format.</div>
-                }
+            <div class="form-group">
+                <label>Email Address: </label>
+                <div>
+                    <InputText @bind-Value="@customer.EmailAddress" class="form-control" />
+                    <ValidationMessage For="@(() => customer.EmailAddress)" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>First Name: </label>
-            <div>
-                <InputText @bind-Value="@customer.FirstName" class="form-control" />
-                <ValidationMessage For="@(() => customer.FirstName)" />
-
-                @if (!string.IsNullOrEmpty(customer.FirstName) && !IsNameValid(customer.FirstName))
-                {
-                    <div class="text-danger">First name must not exceed 50 characters.</div>
-                }
+            <div class="form-group">
+                <label>First Name: </label>
+                <div>
+                    <InputText @bind-Value="@customer.FirstName" class="form-control" />
+                    <ValidationMessage For="@(() => customer.FirstName)" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Last Name: </label>
-            <div>
-                <InputText @bind-Value="@customer.LastName" class="form-control" />
-                <ValidationMessage For="@(() => customer.LastName)" />
-
-                @if (!string.IsNullOrEmpty(customer.LastName) && !IsNameValid(customer.LastName))
-                {
-                    <div class="text-danger">Last name must not exceed 50 characters.</div>
-                }
+            <div class="form-group">
+                <label>Last Name: </label>
+                <div>
+                    <InputText @bind-Value="@customer.LastName" class="form-control" />
+                    <ValidationMessage For="@(() => customer.LastName)" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Gender: </label>
-            <div>
-                <select @bind="customer.Gender" class="form-control">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-                <ValidationMessage For="@(() => customer.Gender)" />
+            <div class="form-group">
+                <label>Gender: </label>
+                <div>
+                    <select @bind="customer.Gender" class="form-control">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <ValidationMessage For="@(() => customer.Gender)" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Nationality: </label>
-            <div>
-                <select @bind="customer.Nationality" class="form-control">
-                    <option value="USA">USA</option>
-                    <option value="Canada">Canada</option>
-                    <option value="UK">UK</option>
-                    <!-- Add more options as needed -->
-                </select>
-                <ValidationMessage For="@(() => customer.Nationality)" />
+            <div class="form-group">
+                <label>Nationality: </label>
+                <div>
+                    <select @bind="customer.Nationality" class="form-control">
+                        <option value="USA">USA</option>
+                        <option value="Canada">Canada</option>
+                        <option value="UK">UK</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                    <ValidationMessage For="@(() => customer.Nationality)" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Date of Birth: </label>
-            <div>
-                <InputDate @bind-Value="@customer.DateOfBirth" class="form-control" />
-                <ValidationMessage For="@(() => customer.DateOfBirth)" />
+            <div class="form-group">
+                <label>Date of Birth: </label>
+                <div>
+                    <InputDate @bind-Value="@customer.DateOfBirth" class="form-control" />
+                    <ValidationMessage For="@(() => customer.DateOfBirth)" />
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Address: </label>
-            <div>
-                <InputText @bind-Value="@customer.Address" class="form-control" />
-                <ValidationMessage For="@(() => customer.Address)" />
+            <div class="form-group">
+                <label>Address: </label>
+                <div>
+                    <InputText @bind-Value="@customer.Address" class="form-control" />
+                    <ValidationMessage For="@(() => customer.Address)" />
+                </div>
             </div>
-        </div>
-    </fieldset>
+        </fieldset>
 
-    <br />
-    <br />
+        <br />
+        <br />
 
-    @if (!Disabled)
-    {
-        <button type="submit" class="btn btn-success btn-block">
-            @ButtonText
-        </button>
-    }
+        @if (!Disabled)
+        {
+            <button type="submit" class="btn btn-primary btn-block">
+                @ButtonText
+            </button>
+        }
 
-    <BackToList Target="customers" />
-</EditForm>
+        <BackToList Target="customers" />
+    </EditForm>
+</div>
 
 @code {
     [Parameter] public bool Disabled { get; set; } = false;
     [Parameter] public Customer? customer { get; set; }
     [Parameter] public string ButtonText { get; set; } = "Save";
     [Parameter] public EventCallback OnValidSubmit { get; set; }
-
-    private bool IsContactNumberValid(string contactNumber)
-    {
-        // Custom contact number validation logic
-        return contactNumber.Length == 8 && contactNumber.All(char.IsDigit);
-    }
-
-    private bool IsEmailAddressValid(string emailAddress)
-    {
-        // Custom email validation logic
-        return emailAddress.Contains("@");
-    }
-
-    private bool IsNameValid(string name)
-    {
-        // Custom name validation logic
-        return name.Length <= 50;
-    }
 }

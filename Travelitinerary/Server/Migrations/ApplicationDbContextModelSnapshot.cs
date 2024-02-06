@@ -436,8 +436,8 @@ namespace Travelitinerary.Server.Migrations
                             Duration = 4f,
                             Name = "Kevin",
                             Price = 56f,
-                            TimeEnd = new DateTime(2024, 2, 6, 20, 9, 12, 635, DateTimeKind.Local).AddTicks(5053),
-                            TimeStart = new DateTime(2024, 2, 6, 14, 9, 12, 635, DateTimeKind.Local).AddTicks(5052),
+                            TimeEnd = new DateTime(2024, 2, 6, 20, 41, 28, 216, DateTimeKind.Local).AddTicks(841),
+                            TimeStart = new DateTime(2024, 2, 6, 14, 41, 28, 216, DateTimeKind.Local).AddTicks(840),
                             Type = "Cleaning",
                             UpdatedBy = "Arthur"
                         });
@@ -455,12 +455,15 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("BookDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BookTitle")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BookType")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
@@ -505,9 +508,11 @@ namespace Travelitinerary.Server.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
@@ -523,18 +528,25 @@ namespace Travelitinerary.Server.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EmailAddress")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Gender")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Nationality")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
